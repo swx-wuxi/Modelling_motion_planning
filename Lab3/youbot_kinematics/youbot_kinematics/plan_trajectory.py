@@ -67,6 +67,7 @@ class YoubotTrajectoryPlanning(Node):
         # ordering. Process callbacks until feedback and the controller are ready.
         from sensor_msgs.msg import JointState
         from rclpy.duration import Duration
+        from geometry_msgs.msg import Point
 
         joint_names = [f"arm_joint_{i}" for i in range(1, 6)]
         measured = {"joints": None}
@@ -100,13 +101,105 @@ class YoubotTrajectoryPlanning(Node):
             f"Shortest checkpoint order: {order.tolist()}; length: {distance:.6f} m"
         )
 
-        # Insert 20 interior samples per straight segment. Solve position IK
+        # Insert 30 interior samples per straight segment. Solve position IK
         # sequentially, using the previous solution as the next initial guess.
-        full_tfs = self.intermediate_tfs(order, target_tfs, num_points=20)
+        num_intermediate_points = 30
+        full_tfs = self.intermediate_tfs(
+            order, target_tfs, num_points=num_intermediate_points
+        )
+        self.get_logger().info(
+            f"Interpolation: {num_intermediate_points} interior points per segment; "
+            f"{full_tfs.shape[2]} total poses including checkpoints."
+        )
+
+        # Show the complete interpolated route on the README's existing Marker
+        # topic. Keep the real measured start; no manual initialization is needed.
+        path_marker = Marker()
+        path_marker.header.frame_id = "base_link"
+        path_marker.ns = "planned_trajectory"
+        path_marker.id = 0
+        path_marker.type = Marker.LINE_STRIP
+        path_marker.action = Marker.ADD
+        path_marker.pose.orientation.w = 1.0
+        path_marker.scale.x = 0.002
+        path_marker.color.a = 1.0
+        path_marker.color.g = 0.8
+        path_marker.color.b = 1.0
+        path_marker.points = [
+            Point(x=float(full_tfs[0, 3, i]), y=float(full_tfs[1, 3, i]),
+                  z=float(full_tfs[2, 3, i]))
+            for i in range(full_tfs.shape[2])
+        ]
+        samples_marker = Marker()
+        samples_marker.header.frame_id = "base_link"
+        samples_marker.ns = "trajectory_samples"
+        samples_marker.id = 0
+        samples_marker.type = Marker.SPHERE_LIST
+        samples_marker.action = Marker.ADD
+        samples_marker.pose.orientation.w = 1.0
+        samples_marker.scale.x = 0.012
+        samples_marker.scale.y = 0.012
+        samples_marker.scale.z = 0.012
+        samples_marker.color.a = 1.0
+        samples_marker.color.r = 0.1
+        samples_marker.color.g = 1.0
+        samples_marker.color.b = 0.1
+
+        # Draw genuine interpolation samples, excluding the large checkpoints.
+        # Keep visible balls about 1.8 cm apart to avoid a merged tube on short
+        # segments. This filters visualization only: IK still uses every sample.
+        visible_indices = []
+        for segment in range(len(order) - 1):
+            first = segment * (num_intermediate_points + 1)
+            segment_indices = []
+            for offset in range(1, num_intermediate_points + 1):
+                index = first + offset
+                point = full_tfs[:3, 3, index]
+                start = full_tfs[:3, 3, first]
+                end = full_tfs[:3, 3, first + num_intermediate_points + 1]
+                if min(np.linalg.norm(point - start), np.linalg.norm(point - end)) < 0.018:
+                    continue
+                if not segment_indices or np.linalg.norm(
+                    point - full_tfs[:3, 3, segment_indices[-1]]
+                ) >= 0.018:
+                    segment_indices.append(index)
+            if not segment_indices and np.linalg.norm(end - start) > 1e-9:
+                segment_indices.append(first + (num_intermediate_points + 1) // 2)
+            visible_indices.extend(segment_indices)
+        samples_marker.points = [path_marker.points[i] for i in visible_indices]
+        goals_marker = Marker()
+        goals_marker.header.frame_id = "base_link"
+        goals_marker.ns = "trajectory_checkpoints"
+        goals_marker.id = 0
+        goals_marker.type = Marker.SPHERE_LIST
+        goals_marker.action = Marker.ADD
+        goals_marker.pose.orientation.w = 1.0
+        goals_marker.scale.x = 0.025
+        goals_marker.scale.y = 0.025
+        goals_marker.scale.z = 0.025
+        goals_marker.color.a = 1.0
+        goals_marker.color.r = 1.0
+        goals_marker.color.g = 0.5
+        goals_marker.points = [
+            Point(x=float(target_tfs[0, 3, i]), y=float(target_tfs[1, 3, i]),
+                  z=float(target_tfs[2, 3, i])) for i in order
+        ]
+
+        # Refresh markers so a late RViz subscriber also sees all samples and
+        # checkpoints. Publish now, before IK, to make the planned route visible.
+        def publish_path():
+            stamp = self.get_clock().now().to_msg()
+            for marker in (path_marker, samples_marker, goals_marker):
+                marker.header.stamp = stamp
+                self.checkpoint_pub.publish(marker)
+
+        publish_path()
+        self.checkpoint_timer = self.create_timer(1.0, publish_path)
         joint_path = self.full_checkpoints_to_joints(full_tfs, target_joints[:, 0])
 
-        # Build timed joint targets, as in LAB2. Allow at least 0.15 seconds per
-        # segment and limit its average joint speed to 1.0 rad/s (URDF: 1.57 rad/s).
+        # Keep the same nominal time per checkpoint-to-checkpoint segment when
+        # increasing sampling density. Limit average joint speed to 1.0 rad/s.
+        min_sample_duration = 0.15 * 21 / (num_intermediate_points + 1)
         traj = JointTrajectory()
         traj.header.frame_id = "base_link"
         traj.joint_names = joint_names
@@ -114,19 +207,12 @@ class YoubotTrajectoryPlanning(Node):
         for i in range(joint_path.shape[1]):
             if i > 0:
                 largest_move = float(np.max(np.abs(joint_path[:, i] - joint_path[:, i - 1])))
-                elapsed += max(0.15, largest_move / 1.0)
+                elapsed += max(min_sample_duration, largest_move / 1.0)
             point = JointTrajectoryPoint()
             point.positions = joint_path[:, i].tolist()
             point.time_from_start = Duration(seconds=elapsed).to_msg()
             traj.points.append(point)
 
-        # Display only the original checkpoints with the template's large sphere
-        # markers. Refresh them so RViz can also connect after planning finishes.
-        ordered_tfs = target_tfs[:, :, order]
-        self.publish_traj_tfs(ordered_tfs)
-        self.checkpoint_timer = self.create_timer(
-            1.0, lambda: self.publish_traj_tfs(ordered_tfs)
-        )
         self.get_logger().info(
             f"Trajectory ready: {len(traj.points)} points; duration: {elapsed:.2f} s."
         )
@@ -334,21 +420,106 @@ class YoubotTrajectoryPlanning(Node):
         # TODO: Implement this
         # Your code starts here ------------------------------
 
-        # Use the existing Jacobian position IK, warming each solve with the
-        # previous solution. Reject failed targets before any command is sent.
-        seed = np.asarray(init_joint_position, dtype=float).reshape(5)
-        q_checkpoints = np.empty((5, full_checkpoint_tfs.shape[2]))
-        max_error = 0.0
-        for i in range(full_checkpoint_tfs.shape[2]):
+        # First solve forward from the actual measured configuration, warming
+        # each Jacobian IK solve with the previous result. Preserve sample zero.
+        initial_joints = np.asarray(init_joint_position, dtype=float).reshape(5)
+        num_samples = full_checkpoint_tfs.shape[2]
+        q_checkpoints = np.full((5, num_samples), np.nan)
+        seed = initial_joints.copy()
+        forward_count = 0
+        for i in range(num_samples):
             joints, error = self.ik_position_only(full_checkpoint_tfs[:, :, i], seed, num=2000)
             if not np.isfinite(error) or error >= 1e-5:
-                raise RuntimeError(
-                    f"IK failed at sample {i}: position error {error:.6f} m. "
-                    "No trajectory was sent. Try the bent initial joint pose "
-                    "[4.0, 1.5, -2.8, 1.8, 2.9] before running the planner."
+                self.get_logger().info(
+                    f"Forward IK stalled at sample {i}; trying a goal-seeded reverse pass."
                 )
+                break
             seed = joints.reshape(5)
             q_checkpoints[:, i] = seed
+            forward_count = i + 1
+
+        # A local pseudoinverse solver can follow an elbow/base branch that
+        # cannot reach a later sample. The supplied target joints give valid
+        # alternative seeds, so solve backward from the final Cartesian goal.
+        # This changes IK guesses, not the physical start or checkpoint order.
+        if forward_count < num_samples:
+            if forward_count == 0:
+                raise RuntimeError("The measured starting pose could not be reproduced by FK/IK.")
+            goal_seeds = np.asarray(TARGET_JOINT_POSITIONS, dtype=float)
+            final_position = full_checkpoint_tfs[:3, 3, -1]
+            nearest_goal = min(
+                range(len(goal_seeds)),
+                key=lambda i: np.linalg.norm(
+                    self.kdl_youbot.forward_kinematics(goal_seeds[i].tolist())[:3, 3]
+                    - final_position
+                ),
+            )
+            seed = goal_seeds[nearest_goal].copy()
+            # Joint five does not affect tool position; avoid unnecessary spin.
+            seed[4] = initial_joints[4]
+            backward = np.full((5, num_samples), np.nan)
+            for i in range(num_samples - 1, 0, -1):
+                joints, error = self.ik_position_only(
+                    full_checkpoint_tfs[:, :, i], seed, num=2000
+                )
+                if not np.isfinite(error) or error >= 1e-5:
+                    break
+                seed = joints.reshape(5)
+                backward[:, i] = seed
+
+            # Search all overlaps for the join with the smallest estimated
+            # Cartesian interpolation error, then prefer a smaller joint move.
+            # Evaluate intermediate joint angles because the controller, unlike
+            # the Cartesian planner, interpolates in joint space between samples.
+            best_join = None
+            best_score = float("inf")
+            best_deviation = None
+            for i in range(min(forward_count, num_samples - 1)):
+                if not np.all(np.isfinite(backward[:, i + 1])):
+                    continue
+                left = q_checkpoints[:, i]
+                delta = backward[:, i + 1] - left
+                delta = np.arctan2(np.sin(delta), np.cos(delta))
+                max_deviation = 0.0
+                for fraction in np.linspace(0.1, 0.9, 9):
+                    actual = self.kdl_youbot.forward_kinematics(
+                        (left + fraction * delta).tolist()
+                    )[:3, 3]
+                    expected = (
+                        (1.0 - fraction) * full_checkpoint_tfs[:3, 3, i]
+                        + fraction * full_checkpoint_tfs[:3, 3, i + 1]
+                    )
+                    max_deviation = max(max_deviation, float(np.linalg.norm(actual - expected)))
+                score = max_deviation + 0.001 * float(np.linalg.norm(delta))
+                if score < best_score:
+                    best_score = score
+                    best_join = i
+                    best_deviation = max_deviation
+            if best_join is None:
+                raise RuntimeError("IK could not solve the complete Cartesian path; no command sent.")
+            q_checkpoints[:, best_join + 1:] = backward[:, best_join + 1:]
+            self.get_logger().info(
+                f"IK branches joined after sample {best_join}; estimated join "
+                f"interpolation deviation: {best_deviation:.6f} m."
+            )
+
+        # Remove equivalent full turns without changing any waypoint position.
+        # These are simulator joint targets; this position IK does not enforce
+        # hardware joint limits, as documented by the template's IK method.
+        for i in range(1, num_samples):
+            delta = q_checkpoints[:, i] - q_checkpoints[:, i - 1]
+            q_checkpoints[:, i] = q_checkpoints[:, i - 1] + np.arctan2(
+                np.sin(delta), np.cos(delta)
+            )
+
+        # Validate every returned waypoint, including any reverse-pass samples,
+        # before the template run() method publishes the single trajectory.
+        max_error = 0.0
+        for i in range(num_samples):
+            actual = self.kdl_youbot.forward_kinematics(q_checkpoints[:, i].tolist())[:3, 3]
+            error = float(np.linalg.norm(actual - full_checkpoint_tfs[:3, 3, i]))
+            if not np.isfinite(error) or error >= 1e-5:
+                raise RuntimeError(f"IK validation failed at sample {i}; no command sent.")
             max_error = max(max_error, error)
         self.get_logger().info(
             f"IK solved {q_checkpoints.shape[1]} samples; max error: {max_error:.3e} m."

@@ -27,7 +27,8 @@ setup(
             "main_kdl = youbot_kinematics.youbotKineKDL:main",
             "main_student = youbot_kinematics.youbotKineStudent:main",
             "plan_trajectory = youbot_kinematics.plan_trajectory:main",
-            "follow_trajectory = youbot_kinematics.follow_trajectory:main",
+            "follow_trajectory = youbot_kinematics.youbot_node:main",
+            "youbot_node = youbot_kinematics.youbot_node:main",
         ],
     },
 )

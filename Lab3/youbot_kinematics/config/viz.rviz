@@ -136,6 +136,8 @@ Visualization Manager:
       Frame Timeout: 15
       Frames:
         All Enabled: false
+        arm_end_effector_follower:
+          Value: true
         arm_link_0:
           Value: false
         arm_link_1:
@@ -185,6 +187,9 @@ Visualization Manager:
       Name: Marker
       Namespaces:
         "": true
+        planned_trajectory: true
+        trajectory_samples: true
+        trajectory_checkpoints: true
       Topic:
         Depth: 20
         Durability Policy: Volatile
