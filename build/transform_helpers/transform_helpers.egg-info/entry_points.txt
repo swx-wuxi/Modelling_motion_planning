@@ -1,3 +1,0 @@
-[console_scripts]
-main = transform_helpers.main:main
-
