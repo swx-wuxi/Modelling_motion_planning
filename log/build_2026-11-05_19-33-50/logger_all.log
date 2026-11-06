@@ -1,0 +1,418 @@
+[0.112s] DEBUG:colcon:Command line arguments: ['/usr/lib/python3/dist-packages/colcon/__main__.py', 'build', '--symlink-install', '--packages-up-to', 'youbot_kinematics', '--cmake-args', '-DPython3_EXECUTABLE=/usr/bin/python3']
+[0.112s] DEBUG:colcon:Parsed command line arguments: Namespace(log_base=None, log_level=None, verb_name='build', build_base='build', install_base='install', merge_install=False, symlink_install=True, test_result_base=None, continue_on_error=False, executor='parallel', parallel_workers=32, event_handlers=None, ignore_user_meta=False, metas=['./colcon.meta'], base_paths=['.'], packages_ignore=None, packages_ignore_regex=None, paths=None, packages_up_to=['youbot_kinematics'], packages_up_to_regex=None, packages_above=None, packages_above_and_dependencies=None, packages_above_depth=None, packages_select_by_dep=None, packages_skip_by_dep=None, packages_skip_up_to=None, packages_select_build_failed=False, packages_skip_build_finished=False, packages_select_test_failures=False, packages_skip_test_passed=False, packages_select=None, packages_skip=None, packages_select_regex=None, packages_skip_regex=None, packages_start=None, packages_end=None, allow_overriding=[], cmake_args=['-DPython3_EXECUTABLE=/usr/bin/python3'], cmake_target=None, cmake_target_skip_unavailable=False, cmake_clean_cache=False, cmake_clean_first=False, cmake_force_configure=False, ament_cmake_args=None, catkin_cmake_args=None, catkin_skip_building_tests=False, mixin_files=None, mixin=None, verb_parser=<colcon_mixin.mixin.mixin_argument.MixinArgumentDecorator object at 0x735c4284e650>, verb_extension=<colcon_core.verb.build.BuildVerb object at 0x735c4284e1a0>, main=<bound method BuildVerb.main of <colcon_core.verb.build.BuildVerb object at 0x735c4284e1a0>>, mixin_verb=('build',))
+[0.254s] Level 1:colcon.colcon_core.package_discovery:discover_packages(colcon_meta) check parameters
+[0.254s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) check parameters
+[0.254s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) check parameters
+[0.254s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) check parameters
+[0.254s] Level 1:colcon.colcon_core.package_discovery:discover_packages(colcon_meta) discover
+[0.254s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) discover
+[0.254s] INFO:colcon.colcon_core.package_discovery:Crawling recursively for packages in '/home/swx/COMP0246_S26_Labs'
+[0.254s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['ignore', 'ignore_ament_install']
+[0.254s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ignore'
+[0.254s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ignore_ament_install'
+[0.255s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['colcon_pkg']
+[0.255s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'colcon_pkg'
+[0.255s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['colcon_meta']
+[0.255s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'colcon_meta'
+[0.255s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['ros']
+[0.255s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ros'
+[0.263s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['cmake', 'python']
+[0.263s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'cmake'
+[0.263s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'python'
+[0.263s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['python_setup_py']
+[0.263s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'python_setup_py'
+[0.263s] Level 1:colcon.colcon_core.package_identification:_identify(Lab1) by extensions ['ignore', 'ignore_ament_install']
+[0.263s] Level 1:colcon.colcon_core.package_identification:_identify(Lab1) by extension 'ignore'
+[0.263s] Level 1:colcon.colcon_core.package_identification:_identify(Lab1) by extension 'ignore_ament_install'
+[0.263s] Level 1:colcon.colcon_core.package_identification:_identify(Lab1) by extensions ['colcon_pkg']
+[0.263s] Level 1:colcon.colcon_core.package_identification:_identify(Lab1) by extension 'colcon_pkg'
+[0.263s] Level 1:colcon.colcon_core.package_identification:_identify(Lab1) by extensions ['colcon_meta']
+[0.263s] Level 1:colcon.colcon_core.package_identification:_identify(Lab1) by extension 'colcon_meta'
+[0.263s] Level 1:colcon.colcon_core.package_identification:_identify(Lab1) by extensions ['ros']
+[0.263s] Level 1:colcon.colcon_core.package_identification:_identify(Lab1) by extension 'ros'
+[0.263s] Level 1:colcon.colcon_core.package_identification:_identify(Lab1) by extensions ['cmake', 'python']
+[0.263s] Level 1:colcon.colcon_core.package_identification:_identify(Lab1) by extension 'cmake'
+[0.263s] Level 1:colcon.colcon_core.package_identification:_identify(Lab1) by extension 'python'
+[0.263s] Level 1:colcon.colcon_core.package_identification:_identify(Lab1) by extensions ['python_setup_py']
+[0.263s] Level 1:colcon.colcon_core.package_identification:_identify(Lab1) by extension 'python_setup_py'
+[0.263s] Level 1:colcon.colcon_core.package_identification:_identify(Lab1/assets) by extensions ['ignore', 'ignore_ament_install']
+[0.263s] Level 1:colcon.colcon_core.package_identification:_identify(Lab1/assets) by extension 'ignore'
+[0.263s] Level 1:colcon.colcon_core.package_identification:_identify(Lab1/assets) by extension 'ignore_ament_install'
+[0.263s] Level 1:colcon.colcon_core.package_identification:_identify(Lab1/assets) by extensions ['colcon_pkg']
+[0.264s] Level 1:colcon.colcon_core.package_identification:_identify(Lab1/assets) by extension 'colcon_pkg'
+[0.264s] Level 1:colcon.colcon_core.package_identification:_identify(Lab1/assets) by extensions ['colcon_meta']
+[0.264s] Level 1:colcon.colcon_core.package_identification:_identify(Lab1/assets) by extension 'colcon_meta'
+[0.264s] Level 1:colcon.colcon_core.package_identification:_identify(Lab1/assets) by extensions ['ros']
+[0.264s] Level 1:colcon.colcon_core.package_identification:_identify(Lab1/assets) by extension 'ros'
+[0.264s] Level 1:colcon.colcon_core.package_identification:_identify(Lab1/assets) by extensions ['cmake', 'python']
+[0.264s] Level 1:colcon.colcon_core.package_identification:_identify(Lab1/assets) by extension 'cmake'
+[0.264s] Level 1:colcon.colcon_core.package_identification:_identify(Lab1/assets) by extension 'python'
+[0.264s] Level 1:colcon.colcon_core.package_identification:_identify(Lab1/assets) by extensions ['python_setup_py']
+[0.264s] Level 1:colcon.colcon_core.package_identification:_identify(Lab1/assets) by extension 'python_setup_py'
+[0.264s] Level 1:colcon.colcon_core.package_identification:_identify(Lab1/transform_helpers) by extensions ['ignore', 'ignore_ament_install']
+[0.264s] Level 1:colcon.colcon_core.package_identification:_identify(Lab1/transform_helpers) by extension 'ignore'
+[0.264s] Level 1:colcon.colcon_core.package_identification:_identify(Lab1/transform_helpers) by extension 'ignore_ament_install'
+[0.264s] Level 1:colcon.colcon_core.package_identification:_identify(Lab1/transform_helpers) by extensions ['colcon_pkg']
+[0.264s] Level 1:colcon.colcon_core.package_identification:_identify(Lab1/transform_helpers) by extension 'colcon_pkg'
+[0.264s] Level 1:colcon.colcon_core.package_identification:_identify(Lab1/transform_helpers) by extensions ['colcon_meta']
+[0.264s] Level 1:colcon.colcon_core.package_identification:_identify(Lab1/transform_helpers) by extension 'colcon_meta'
+[0.264s] Level 1:colcon.colcon_core.package_identification:_identify(Lab1/transform_helpers) by extensions ['ros']
+[0.264s] Level 1:colcon.colcon_core.package_identification:_identify(Lab1/transform_helpers) by extension 'ros'
+[0.266s] DEBUG:colcon.colcon_core.package_identification:Package 'Lab1/transform_helpers' with type 'ros.ament_python' and name 'transform_helpers'
+[0.266s] Level 1:colcon.colcon_core.package_identification:_identify(Lab2) by extensions ['ignore', 'ignore_ament_install']
+[0.266s] Level 1:colcon.colcon_core.package_identification:_identify(Lab2) by extension 'ignore'
+[0.266s] Level 1:colcon.colcon_core.package_identification:_identify(Lab2) by extension 'ignore_ament_install'
+[0.266s] Level 1:colcon.colcon_core.package_identification:_identify(Lab2) by extensions ['colcon_pkg']
+[0.266s] Level 1:colcon.colcon_core.package_identification:_identify(Lab2) by extension 'colcon_pkg'
+[0.266s] Level 1:colcon.colcon_core.package_identification:_identify(Lab2) by extensions ['colcon_meta']
+[0.266s] Level 1:colcon.colcon_core.package_identification:_identify(Lab2) by extension 'colcon_meta'
+[0.266s] Level 1:colcon.colcon_core.package_identification:_identify(Lab2) by extensions ['ros']
+[0.266s] Level 1:colcon.colcon_core.package_identification:_identify(Lab2) by extension 'ros'
+[0.266s] Level 1:colcon.colcon_core.package_identification:_identify(Lab2) by extensions ['cmake', 'python']
+[0.266s] Level 1:colcon.colcon_core.package_identification:_identify(Lab2) by extension 'cmake'
+[0.266s] Level 1:colcon.colcon_core.package_identification:_identify(Lab2) by extension 'python'
+[0.266s] Level 1:colcon.colcon_core.package_identification:_identify(Lab2) by extensions ['python_setup_py']
+[0.266s] Level 1:colcon.colcon_core.package_identification:_identify(Lab2) by extension 'python_setup_py'
+[0.266s] Level 1:colcon.colcon_core.package_identification:_identify(Lab2/assets) by extensions ['ignore', 'ignore_ament_install']
+[0.266s] Level 1:colcon.colcon_core.package_identification:_identify(Lab2/assets) by extension 'ignore'
+[0.266s] Level 1:colcon.colcon_core.package_identification:_identify(Lab2/assets) by extension 'ignore_ament_install'
+[0.266s] Level 1:colcon.colcon_core.package_identification:_identify(Lab2/assets) by extensions ['colcon_pkg']
+[0.266s] Level 1:colcon.colcon_core.package_identification:_identify(Lab2/assets) by extension 'colcon_pkg'
+[0.266s] Level 1:colcon.colcon_core.package_identification:_identify(Lab2/assets) by extensions ['colcon_meta']
+[0.266s] Level 1:colcon.colcon_core.package_identification:_identify(Lab2/assets) by extension 'colcon_meta'
+[0.266s] Level 1:colcon.colcon_core.package_identification:_identify(Lab2/assets) by extensions ['ros']
+[0.266s] Level 1:colcon.colcon_core.package_identification:_identify(Lab2/assets) by extension 'ros'
+[0.266s] Level 1:colcon.colcon_core.package_identification:_identify(Lab2/assets) by extensions ['cmake', 'python']
+[0.266s] Level 1:colcon.colcon_core.package_identification:_identify(Lab2/assets) by extension 'cmake'
+[0.266s] Level 1:colcon.colcon_core.package_identification:_identify(Lab2/assets) by extension 'python'
+[0.266s] Level 1:colcon.colcon_core.package_identification:_identify(Lab2/assets) by extensions ['python_setup_py']
+[0.266s] Level 1:colcon.colcon_core.package_identification:_identify(Lab2/assets) by extension 'python_setup_py'
+[0.267s] Level 1:colcon.colcon_core.package_identification:_identify(Lab2/assets/lab2) by extensions ['ignore', 'ignore_ament_install']
+[0.267s] Level 1:colcon.colcon_core.package_identification:_identify(Lab2/assets/lab2) by extension 'ignore'
+[0.267s] Level 1:colcon.colcon_core.package_identification:_identify(Lab2/assets/lab2) by extension 'ignore_ament_install'
+[0.267s] Level 1:colcon.colcon_core.package_identification:_identify(Lab2/assets/lab2) by extensions ['colcon_pkg']
+[0.267s] Level 1:colcon.colcon_core.package_identification:_identify(Lab2/assets/lab2) by extension 'colcon_pkg'
+[0.267s] Level 1:colcon.colcon_core.package_identification:_identify(Lab2/assets/lab2) by extensions ['colcon_meta']
+[0.267s] Level 1:colcon.colcon_core.package_identification:_identify(Lab2/assets/lab2) by extension 'colcon_meta'
+[0.267s] Level 1:colcon.colcon_core.package_identification:_identify(Lab2/assets/lab2) by extensions ['ros']
+[0.267s] Level 1:colcon.colcon_core.package_identification:_identify(Lab2/assets/lab2) by extension 'ros'
+[0.267s] Level 1:colcon.colcon_core.package_identification:_identify(Lab2/assets/lab2) by extensions ['cmake', 'python']
+[0.267s] Level 1:colcon.colcon_core.package_identification:_identify(Lab2/assets/lab2) by extension 'cmake'
+[0.267s] Level 1:colcon.colcon_core.package_identification:_identify(Lab2/assets/lab2) by extension 'python'
+[0.267s] Level 1:colcon.colcon_core.package_identification:_identify(Lab2/assets/lab2) by extensions ['python_setup_py']
+[0.267s] Level 1:colcon.colcon_core.package_identification:_identify(Lab2/assets/lab2) by extension 'python_setup_py'
+[0.267s] Level 1:colcon.colcon_core.package_identification:_identify(Lab2/trajectory_demo) by extensions ['ignore', 'ignore_ament_install']
+[0.267s] Level 1:colcon.colcon_core.package_identification:_identify(Lab2/trajectory_demo) by extension 'ignore'
+[0.267s] Level 1:colcon.colcon_core.package_identification:_identify(Lab2/trajectory_demo) by extension 'ignore_ament_install'
+[0.267s] Level 1:colcon.colcon_core.package_identification:_identify(Lab2/trajectory_demo) by extensions ['colcon_pkg']
+[0.267s] Level 1:colcon.colcon_core.package_identification:_identify(Lab2/trajectory_demo) by extension 'colcon_pkg'
+[0.267s] Level 1:colcon.colcon_core.package_identification:_identify(Lab2/trajectory_demo) by extensions ['colcon_meta']
+[0.267s] Level 1:colcon.colcon_core.package_identification:_identify(Lab2/trajectory_demo) by extension 'colcon_meta'
+[0.267s] Level 1:colcon.colcon_core.package_identification:_identify(Lab2/trajectory_demo) by extensions ['ros']
+[0.267s] Level 1:colcon.colcon_core.package_identification:_identify(Lab2/trajectory_demo) by extension 'ros'
+[0.267s] DEBUG:colcon.colcon_core.package_identification:Package 'Lab2/trajectory_demo' with type 'ros.ament_python' and name 'trajectory_demo'
+[0.268s] Level 1:colcon.colcon_core.package_identification:_identify(Lab3) by extensions ['ignore', 'ignore_ament_install']
+[0.268s] Level 1:colcon.colcon_core.package_identification:_identify(Lab3) by extension 'ignore'
+[0.268s] Level 1:colcon.colcon_core.package_identification:_identify(Lab3) by extension 'ignore_ament_install'
+[0.268s] Level 1:colcon.colcon_core.package_identification:_identify(Lab3) by extensions ['colcon_pkg']
+[0.268s] Level 1:colcon.colcon_core.package_identification:_identify(Lab3) by extension 'colcon_pkg'
+[0.268s] Level 1:colcon.colcon_core.package_identification:_identify(Lab3) by extensions ['colcon_meta']
+[0.268s] Level 1:colcon.colcon_core.package_identification:_identify(Lab3) by extension 'colcon_meta'
+[0.268s] Level 1:colcon.colcon_core.package_identification:_identify(Lab3) by extensions ['ros']
+[0.268s] Level 1:colcon.colcon_core.package_identification:_identify(Lab3) by extension 'ros'
+[0.268s] Level 1:colcon.colcon_core.package_identification:_identify(Lab3) by extensions ['cmake', 'python']
+[0.268s] Level 1:colcon.colcon_core.package_identification:_identify(Lab3) by extension 'cmake'
+[0.268s] Level 1:colcon.colcon_core.package_identification:_identify(Lab3) by extension 'python'
+[0.268s] Level 1:colcon.colcon_core.package_identification:_identify(Lab3) by extensions ['python_setup_py']
+[0.268s] Level 1:colcon.colcon_core.package_identification:_identify(Lab3) by extension 'python_setup_py'
+[0.268s] Level 1:colcon.colcon_core.package_identification:_identify(Lab3/assets) by extensions ['ignore', 'ignore_ament_install']
+[0.268s] Level 1:colcon.colcon_core.package_identification:_identify(Lab3/assets) by extension 'ignore'
+[0.268s] Level 1:colcon.colcon_core.package_identification:_identify(Lab3/assets) by extension 'ignore_ament_install'
+[0.268s] Level 1:colcon.colcon_core.package_identification:_identify(Lab3/assets) by extensions ['colcon_pkg']
+[0.268s] Level 1:colcon.colcon_core.package_identification:_identify(Lab3/assets) by extension 'colcon_pkg'
+[0.268s] Level 1:colcon.colcon_core.package_identification:_identify(Lab3/assets) by extensions ['colcon_meta']
+[0.268s] Level 1:colcon.colcon_core.package_identification:_identify(Lab3/assets) by extension 'colcon_meta'
+[0.268s] Level 1:colcon.colcon_core.package_identification:_identify(Lab3/assets) by extensions ['ros']
+[0.268s] Level 1:colcon.colcon_core.package_identification:_identify(Lab3/assets) by extension 'ros'
+[0.268s] Level 1:colcon.colcon_core.package_identification:_identify(Lab3/assets) by extensions ['cmake', 'python']
+[0.268s] Level 1:colcon.colcon_core.package_identification:_identify(Lab3/assets) by extension 'cmake'
+[0.268s] Level 1:colcon.colcon_core.package_identification:_identify(Lab3/assets) by extension 'python'
+[0.268s] Level 1:colcon.colcon_core.package_identification:_identify(Lab3/assets) by extensions ['python_setup_py']
+[0.268s] Level 1:colcon.colcon_core.package_identification:_identify(Lab3/assets) by extension 'python_setup_py'
+[0.268s] Level 1:colcon.colcon_core.package_identification:_identify(Lab3/assets/lab2) by extensions ['ignore', 'ignore_ament_install']
+[0.268s] Level 1:colcon.colcon_core.package_identification:_identify(Lab3/assets/lab2) by extension 'ignore'
+[0.268s] Level 1:colcon.colcon_core.package_identification:_identify(Lab3/assets/lab2) by extension 'ignore_ament_install'
+[0.268s] Level 1:colcon.colcon_core.package_identification:_identify(Lab3/assets/lab2) by extensions ['colcon_pkg']
+[0.268s] Level 1:colcon.colcon_core.package_identification:_identify(Lab3/assets/lab2) by extension 'colcon_pkg'
+[0.268s] Level 1:colcon.colcon_core.package_identification:_identify(Lab3/assets/lab2) by extensions ['colcon_meta']
+[0.268s] Level 1:colcon.colcon_core.package_identification:_identify(Lab3/assets/lab2) by extension 'colcon_meta'
+[0.268s] Level 1:colcon.colcon_core.package_identification:_identify(Lab3/assets/lab2) by extensions ['ros']
+[0.268s] Level 1:colcon.colcon_core.package_identification:_identify(Lab3/assets/lab2) by extension 'ros'
+[0.269s] Level 1:colcon.colcon_core.package_identification:_identify(Lab3/assets/lab2) by extensions ['cmake', 'python']
+[0.269s] Level 1:colcon.colcon_core.package_identification:_identify(Lab3/assets/lab2) by extension 'cmake'
+[0.269s] Level 1:colcon.colcon_core.package_identification:_identify(Lab3/assets/lab2) by extension 'python'
+[0.269s] Level 1:colcon.colcon_core.package_identification:_identify(Lab3/assets/lab2) by extensions ['python_setup_py']
+[0.269s] Level 1:colcon.colcon_core.package_identification:_identify(Lab3/assets/lab2) by extension 'python_setup_py'
+[0.269s] Level 1:colcon.colcon_core.package_identification:_identify(Lab3/youbot_description) by extensions ['ignore', 'ignore_ament_install']
+[0.269s] Level 1:colcon.colcon_core.package_identification:_identify(Lab3/youbot_description) by extension 'ignore'
+[0.269s] Level 1:colcon.colcon_core.package_identification:_identify(Lab3/youbot_description) by extension 'ignore_ament_install'
+[0.269s] Level 1:colcon.colcon_core.package_identification:_identify(Lab3/youbot_description) by extensions ['colcon_pkg']
+[0.269s] Level 1:colcon.colcon_core.package_identification:_identify(Lab3/youbot_description) by extension 'colcon_pkg'
+[0.269s] Level 1:colcon.colcon_core.package_identification:_identify(Lab3/youbot_description) by extensions ['colcon_meta']
+[0.269s] Level 1:colcon.colcon_core.package_identification:_identify(Lab3/youbot_description) by extension 'colcon_meta'
+[0.269s] Level 1:colcon.colcon_core.package_identification:_identify(Lab3/youbot_description) by extensions ['ros']
+[0.269s] Level 1:colcon.colcon_core.package_identification:_identify(Lab3/youbot_description) by extension 'ros'
+[0.269s] DEBUG:colcon.colcon_core.package_identification:Package 'Lab3/youbot_description' with type 'ros.ament_python' and name 'youbot_description'
+[0.269s] Level 1:colcon.colcon_core.package_identification:_identify(Lab3/youbot_kinematics) by extensions ['ignore', 'ignore_ament_install']
+[0.269s] Level 1:colcon.colcon_core.package_identification:_identify(Lab3/youbot_kinematics) by extension 'ignore'
+[0.269s] Level 1:colcon.colcon_core.package_identification:_identify(Lab3/youbot_kinematics) by extension 'ignore_ament_install'
+[0.269s] Level 1:colcon.colcon_core.package_identification:_identify(Lab3/youbot_kinematics) by extensions ['colcon_pkg']
+[0.269s] Level 1:colcon.colcon_core.package_identification:_identify(Lab3/youbot_kinematics) by extension 'colcon_pkg'
+[0.269s] Level 1:colcon.colcon_core.package_identification:_identify(Lab3/youbot_kinematics) by extensions ['colcon_meta']
+[0.269s] Level 1:colcon.colcon_core.package_identification:_identify(Lab3/youbot_kinematics) by extension 'colcon_meta'
+[0.269s] Level 1:colcon.colcon_core.package_identification:_identify(Lab3/youbot_kinematics) by extensions ['ros']
+[0.269s] Level 1:colcon.colcon_core.package_identification:_identify(Lab3/youbot_kinematics) by extension 'ros'
+[0.270s] DEBUG:colcon.colcon_core.package_identification:Package 'Lab3/youbot_kinematics' with type 'ros.ament_python' and name 'youbot_kinematics'
+[0.270s] Level 1:colcon.colcon_core.package_identification:_identify(build) by extensions ['ignore', 'ignore_ament_install']
+[0.270s] Level 1:colcon.colcon_core.package_identification:_identify(build) by extension 'ignore'
+[0.270s] Level 1:colcon.colcon_core.package_identification:_identify(build) ignored
+[0.270s] Level 1:colcon.colcon_core.package_identification:_identify(franka_description) by extensions ['ignore', 'ignore_ament_install']
+[0.270s] Level 1:colcon.colcon_core.package_identification:_identify(franka_description) by extension 'ignore'
+[0.270s] Level 1:colcon.colcon_core.package_identification:_identify(franka_description) by extension 'ignore_ament_install'
+[0.270s] Level 1:colcon.colcon_core.package_identification:_identify(franka_description) by extensions ['colcon_pkg']
+[0.270s] Level 1:colcon.colcon_core.package_identification:_identify(franka_description) by extension 'colcon_pkg'
+[0.270s] Level 1:colcon.colcon_core.package_identification:_identify(franka_description) by extensions ['colcon_meta']
+[0.270s] Level 1:colcon.colcon_core.package_identification:_identify(franka_description) by extension 'colcon_meta'
+[0.270s] Level 1:colcon.colcon_core.package_identification:_identify(franka_description) by extensions ['ros']
+[0.270s] Level 1:colcon.colcon_core.package_identification:_identify(franka_description) by extension 'ros'
+[0.271s] DEBUG:colcon.colcon_core.package_identification:Package 'franka_description' with type 'ros.ament_cmake' and name 'franka_description'
+[0.271s] Level 1:colcon.colcon_core.package_identification:_identify(install) by extensions ['ignore', 'ignore_ament_install']
+[0.271s] Level 1:colcon.colcon_core.package_identification:_identify(install) by extension 'ignore'
+[0.271s] Level 1:colcon.colcon_core.package_identification:_identify(install) ignored
+[0.271s] Level 1:colcon.colcon_core.package_identification:_identify(log) by extensions ['ignore', 'ignore_ament_install']
+[0.271s] Level 1:colcon.colcon_core.package_identification:_identify(log) by extension 'ignore'
+[0.271s] Level 1:colcon.colcon_core.package_identification:_identify(log) ignored
+[0.271s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) using defaults
+[0.271s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) discover
+[0.271s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) using defaults
+[0.271s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) discover
+[0.271s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) using defaults
+[0.286s] INFO:colcon.colcon_core.package_selection:Skipping package 'trajectory_demo' in 'Lab2/trajectory_demo'
+[0.286s] Level 1:colcon.colcon_core.package_discovery:discover_packages(prefix_path) check parameters
+[0.286s] Level 1:colcon.colcon_core.package_discovery:discover_packages(prefix_path) discover
+[0.287s] DEBUG:colcon.colcon_installed_package_information.package_discovery:Found 4 installed packages in /home/swx/COMP0246_S26_Labs/install
+[0.288s] DEBUG:colcon.colcon_installed_package_information.package_discovery:Found 272 installed packages in /opt/ros/humble
+[0.299s] Level 1:colcon.colcon_core.package_discovery:discover_packages(prefix_path) using defaults
+[0.324s] Level 5:colcon.colcon_core.verb:set package 'franka_description' build argument 'cmake_args' from command line to '['-DPython3_EXECUTABLE=/usr/bin/python3']'
+[0.324s] Level 5:colcon.colcon_core.verb:set package 'franka_description' build argument 'cmake_target' from command line to 'None'
+[0.324s] Level 5:colcon.colcon_core.verb:set package 'franka_description' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[0.324s] Level 5:colcon.colcon_core.verb:set package 'franka_description' build argument 'cmake_clean_cache' from command line to 'False'
+[0.324s] Level 5:colcon.colcon_core.verb:set package 'franka_description' build argument 'cmake_clean_first' from command line to 'False'
+[0.324s] Level 5:colcon.colcon_core.verb:set package 'franka_description' build argument 'cmake_force_configure' from command line to 'False'
+[0.325s] Level 5:colcon.colcon_core.verb:set package 'franka_description' build argument 'ament_cmake_args' from command line to 'None'
+[0.325s] Level 5:colcon.colcon_core.verb:set package 'franka_description' build argument 'catkin_cmake_args' from command line to 'None'
+[0.325s] Level 5:colcon.colcon_core.verb:set package 'franka_description' build argument 'catkin_skip_building_tests' from command line to 'False'
+[0.325s] DEBUG:colcon.colcon_core.verb:Building package 'franka_description' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/swx/COMP0246_S26_Labs/build/franka_description', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': ['-DPython3_EXECUTABLE=/usr/bin/python3'], 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/swx/COMP0246_S26_Labs/install/franka_description', 'merge_install': False, 'path': '/home/swx/COMP0246_S26_Labs/franka_description', 'symlink_install': True, 'test_result_base': None}
+[0.325s] Level 5:colcon.colcon_core.verb:set package 'youbot_description' build argument 'cmake_args' from command line to '['-DPython3_EXECUTABLE=/usr/bin/python3']'
+[0.325s] Level 5:colcon.colcon_core.verb:set package 'youbot_description' build argument 'cmake_target' from command line to 'None'
+[0.325s] Level 5:colcon.colcon_core.verb:set package 'youbot_description' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[0.325s] Level 5:colcon.colcon_core.verb:set package 'youbot_description' build argument 'cmake_clean_cache' from command line to 'False'
+[0.325s] Level 5:colcon.colcon_core.verb:set package 'youbot_description' build argument 'cmake_clean_first' from command line to 'False'
+[0.325s] Level 5:colcon.colcon_core.verb:set package 'youbot_description' build argument 'cmake_force_configure' from command line to 'False'
+[0.325s] Level 5:colcon.colcon_core.verb:set package 'youbot_description' build argument 'ament_cmake_args' from command line to 'None'
+[0.325s] Level 5:colcon.colcon_core.verb:set package 'youbot_description' build argument 'catkin_cmake_args' from command line to 'None'
+[0.325s] Level 5:colcon.colcon_core.verb:set package 'youbot_description' build argument 'catkin_skip_building_tests' from command line to 'False'
+[0.325s] DEBUG:colcon.colcon_core.verb:Building package 'youbot_description' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/swx/COMP0246_S26_Labs/build/youbot_description', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': ['-DPython3_EXECUTABLE=/usr/bin/python3'], 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/swx/COMP0246_S26_Labs/install/youbot_description', 'merge_install': False, 'path': '/home/swx/COMP0246_S26_Labs/Lab3/youbot_description', 'symlink_install': True, 'test_result_base': None}
+[0.325s] Level 5:colcon.colcon_core.verb:set package 'transform_helpers' build argument 'cmake_args' from command line to '['-DPython3_EXECUTABLE=/usr/bin/python3']'
+[0.325s] Level 5:colcon.colcon_core.verb:set package 'transform_helpers' build argument 'cmake_target' from command line to 'None'
+[0.325s] Level 5:colcon.colcon_core.verb:set package 'transform_helpers' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[0.325s] Level 5:colcon.colcon_core.verb:set package 'transform_helpers' build argument 'cmake_clean_cache' from command line to 'False'
+[0.325s] Level 5:colcon.colcon_core.verb:set package 'transform_helpers' build argument 'cmake_clean_first' from command line to 'False'
+[0.325s] Level 5:colcon.colcon_core.verb:set package 'transform_helpers' build argument 'cmake_force_configure' from command line to 'False'
+[0.325s] Level 5:colcon.colcon_core.verb:set package 'transform_helpers' build argument 'ament_cmake_args' from command line to 'None'
+[0.325s] Level 5:colcon.colcon_core.verb:set package 'transform_helpers' build argument 'catkin_cmake_args' from command line to 'None'
+[0.325s] Level 5:colcon.colcon_core.verb:set package 'transform_helpers' build argument 'catkin_skip_building_tests' from command line to 'False'
+[0.325s] DEBUG:colcon.colcon_core.verb:Building package 'transform_helpers' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/swx/COMP0246_S26_Labs/build/transform_helpers', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': ['-DPython3_EXECUTABLE=/usr/bin/python3'], 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/swx/COMP0246_S26_Labs/install/transform_helpers', 'merge_install': False, 'path': '/home/swx/COMP0246_S26_Labs/Lab1/transform_helpers', 'symlink_install': True, 'test_result_base': None}
+[0.326s] Level 5:colcon.colcon_core.verb:set package 'youbot_kinematics' build argument 'cmake_args' from command line to '['-DPython3_EXECUTABLE=/usr/bin/python3']'
+[0.326s] Level 5:colcon.colcon_core.verb:set package 'youbot_kinematics' build argument 'cmake_target' from command line to 'None'
+[0.326s] Level 5:colcon.colcon_core.verb:set package 'youbot_kinematics' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[0.326s] Level 5:colcon.colcon_core.verb:set package 'youbot_kinematics' build argument 'cmake_clean_cache' from command line to 'False'
+[0.326s] Level 5:colcon.colcon_core.verb:set package 'youbot_kinematics' build argument 'cmake_clean_first' from command line to 'False'
+[0.326s] Level 5:colcon.colcon_core.verb:set package 'youbot_kinematics' build argument 'cmake_force_configure' from command line to 'False'
+[0.326s] Level 5:colcon.colcon_core.verb:set package 'youbot_kinematics' build argument 'ament_cmake_args' from command line to 'None'
+[0.326s] Level 5:colcon.colcon_core.verb:set package 'youbot_kinematics' build argument 'catkin_cmake_args' from command line to 'None'
+[0.326s] Level 5:colcon.colcon_core.verb:set package 'youbot_kinematics' build argument 'catkin_skip_building_tests' from command line to 'False'
+[0.326s] DEBUG:colcon.colcon_core.verb:Building package 'youbot_kinematics' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/swx/COMP0246_S26_Labs/build/youbot_kinematics', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': ['-DPython3_EXECUTABLE=/usr/bin/python3'], 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/swx/COMP0246_S26_Labs/install/youbot_kinematics', 'merge_install': False, 'path': '/home/swx/COMP0246_S26_Labs/Lab3/youbot_kinematics', 'symlink_install': True, 'test_result_base': None}
+[0.326s] INFO:colcon.colcon_core.executor:Executing jobs using 'parallel' executor
+[0.327s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:run_until_complete
+[0.327s] INFO:colcon.colcon_ros.task.ament_cmake.build:Building ROS package in '/home/swx/COMP0246_S26_Labs/franka_description' with build type 'ament_cmake'
+[0.327s] INFO:colcon.colcon_cmake.task.cmake.build:Building CMake package in '/home/swx/COMP0246_S26_Labs/franka_description'
+[0.328s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_core.shell.bat': Not used on non-Windows systems
+[0.328s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[0.329s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[0.331s] INFO:colcon.colcon_ros.task.ament_python.build:Building ROS package in '/home/swx/COMP0246_S26_Labs/Lab3/youbot_description' with build type 'ament_python'
+[0.332s] Level 1:colcon.colcon_core.shell:create_environment_hook('youbot_description', 'ament_prefix_path')
+[0.332s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/swx/COMP0246_S26_Labs/install/youbot_description/share/youbot_description/hook/ament_prefix_path.ps1'
+[0.332s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/swx/COMP0246_S26_Labs/install/youbot_description/share/youbot_description/hook/ament_prefix_path.dsv'
+[0.333s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/swx/COMP0246_S26_Labs/install/youbot_description/share/youbot_description/hook/ament_prefix_path.sh'
+[0.333s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[0.333s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[0.340s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/swx/COMP0246_S26_Labs/build/franka_description': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble:/home/swx/COMP0246_S26_Labs/install/youbot_kinematics:/home/swx/COMP0246_S26_Labs/install/youbot_description:/home/swx/COMP0246_S26_Labs/install/transform_helpers /usr/bin/cmake /home/swx/COMP0246_S26_Labs/franka_description -DPython3_EXECUTABLE=/usr/bin/python3 -DAMENT_CMAKE_SYMLINK_INSTALL=1 -DCMAKE_INSTALL_PREFIX=/home/swx/COMP0246_S26_Labs/install/franka_description
+[0.515s] INFO:colcon.colcon_core.task.python.build:Building Python package in '/home/swx/COMP0246_S26_Labs/Lab3/youbot_description'
+[0.515s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[0.515s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[0.713s] DEBUG:colcon.colcon_core.task.python.build:Available setuptools commands: develop, egg_info, install_headers, setopt, dist_info, install_lib, upload, check, build_clib, bdist_egg, build_ext, register, install_egg_info, clean, rotate, symlink_data, build, install_data, test, build_py, bdist, sdist, bdist_dumb, easy_install, saveopts, install_scripts, upload_docs, alias, install, build_scripts, bdist_rpm
+[0.776s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/swx/COMP0246_S26_Labs/build/franka_description' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble:/home/swx/COMP0246_S26_Labs/install/youbot_kinematics:/home/swx/COMP0246_S26_Labs/install/youbot_description:/home/swx/COMP0246_S26_Labs/install/transform_helpers /usr/bin/cmake /home/swx/COMP0246_S26_Labs/franka_description -DPython3_EXECUTABLE=/usr/bin/python3 -DAMENT_CMAKE_SYMLINK_INSTALL=1 -DCMAKE_INSTALL_PREFIX=/home/swx/COMP0246_S26_Labs/install/franka_description
+[0.777s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/swx/COMP0246_S26_Labs/build/franka_description': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble:/home/swx/COMP0246_S26_Labs/install/youbot_kinematics:/home/swx/COMP0246_S26_Labs/install/youbot_description:/home/swx/COMP0246_S26_Labs/install/transform_helpers /usr/bin/cmake --build /home/swx/COMP0246_S26_Labs/build/franka_description -- -j32 -l32
+[0.805s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/swx/COMP0246_S26_Labs/build/franka_description' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble:/home/swx/COMP0246_S26_Labs/install/youbot_kinematics:/home/swx/COMP0246_S26_Labs/install/youbot_description:/home/swx/COMP0246_S26_Labs/install/transform_helpers /usr/bin/cmake --build /home/swx/COMP0246_S26_Labs/build/franka_description -- -j32 -l32
+[0.812s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/swx/COMP0246_S26_Labs/build/franka_description': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble:/home/swx/COMP0246_S26_Labs/install/youbot_kinematics:/home/swx/COMP0246_S26_Labs/install/youbot_description:/home/swx/COMP0246_S26_Labs/install/transform_helpers /usr/bin/cmake --install /home/swx/COMP0246_S26_Labs/build/franka_description
+[0.833s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(franka_description)
+[0.833s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/swx/COMP0246_S26_Labs/build/franka_description' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble:/home/swx/COMP0246_S26_Labs/install/youbot_kinematics:/home/swx/COMP0246_S26_Labs/install/youbot_description:/home/swx/COMP0246_S26_Labs/install/transform_helpers /usr/bin/cmake --install /home/swx/COMP0246_S26_Labs/build/franka_description
+[0.834s] Level 1:colcon.colcon_core.environment:checking '/home/swx/COMP0246_S26_Labs/install/franka_description' for CMake module files
+[0.835s] Level 1:colcon.colcon_core.environment:checking '/home/swx/COMP0246_S26_Labs/install/franka_description' for CMake config files
+[0.835s] Level 1:colcon.colcon_core.shell:create_environment_hook('franka_description', 'cmake_prefix_path')
+[0.835s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/swx/COMP0246_S26_Labs/install/franka_description/share/franka_description/hook/cmake_prefix_path.ps1'
+[0.836s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/swx/COMP0246_S26_Labs/install/franka_description/share/franka_description/hook/cmake_prefix_path.dsv'
+[0.836s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/swx/COMP0246_S26_Labs/install/franka_description/share/franka_description/hook/cmake_prefix_path.sh'
+[0.836s] Level 1:colcon.colcon_core.environment:checking '/home/swx/COMP0246_S26_Labs/install/franka_description/bin'
+[0.836s] Level 1:colcon.colcon_core.environment:checking '/home/swx/COMP0246_S26_Labs/install/franka_description/lib/pkgconfig/franka_description.pc'
+[0.837s] Level 1:colcon.colcon_core.environment:checking '/home/swx/COMP0246_S26_Labs/install/franka_description/lib/python3.10/site-packages'
+[0.837s] Level 1:colcon.colcon_core.environment:checking '/home/swx/COMP0246_S26_Labs/install/franka_description/bin'
+[0.837s] INFO:colcon.colcon_core.shell:Creating package script '/home/swx/COMP0246_S26_Labs/install/franka_description/share/franka_description/package.ps1'
+[0.837s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/swx/COMP0246_S26_Labs/install/franka_description/share/franka_description/package.dsv'
+[0.838s] INFO:colcon.colcon_core.shell:Creating package script '/home/swx/COMP0246_S26_Labs/install/franka_description/share/franka_description/package.sh'
+[0.838s] INFO:colcon.colcon_core.shell:Creating package script '/home/swx/COMP0246_S26_Labs/install/franka_description/share/franka_description/package.bash'
+[0.838s] INFO:colcon.colcon_core.shell:Creating package script '/home/swx/COMP0246_S26_Labs/install/franka_description/share/franka_description/package.zsh'
+[0.839s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/swx/COMP0246_S26_Labs/install/franka_description/share/colcon-core/packages/franka_description)
+[0.839s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(franka_description)
+[0.839s] Level 1:colcon.colcon_core.environment:checking '/home/swx/COMP0246_S26_Labs/install/franka_description' for CMake module files
+[0.840s] Level 1:colcon.colcon_core.environment:checking '/home/swx/COMP0246_S26_Labs/install/franka_description' for CMake config files
+[0.840s] Level 1:colcon.colcon_core.shell:create_environment_hook('franka_description', 'cmake_prefix_path')
+[0.840s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/swx/COMP0246_S26_Labs/install/franka_description/share/franka_description/hook/cmake_prefix_path.ps1'
+[0.840s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/swx/COMP0246_S26_Labs/install/franka_description/share/franka_description/hook/cmake_prefix_path.dsv'
+[0.841s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/swx/COMP0246_S26_Labs/install/franka_description/share/franka_description/hook/cmake_prefix_path.sh'
+[0.841s] Level 1:colcon.colcon_core.environment:checking '/home/swx/COMP0246_S26_Labs/install/franka_description/bin'
+[0.841s] Level 1:colcon.colcon_core.environment:checking '/home/swx/COMP0246_S26_Labs/install/franka_description/lib/pkgconfig/franka_description.pc'
+[0.841s] Level 1:colcon.colcon_core.environment:checking '/home/swx/COMP0246_S26_Labs/install/franka_description/lib/python3.10/site-packages'
+[0.841s] Level 1:colcon.colcon_core.environment:checking '/home/swx/COMP0246_S26_Labs/install/franka_description/bin'
+[0.841s] INFO:colcon.colcon_core.shell:Creating package script '/home/swx/COMP0246_S26_Labs/install/franka_description/share/franka_description/package.ps1'
+[0.842s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/swx/COMP0246_S26_Labs/install/franka_description/share/franka_description/package.dsv'
+[0.842s] INFO:colcon.colcon_core.shell:Creating package script '/home/swx/COMP0246_S26_Labs/install/franka_description/share/franka_description/package.sh'
+[0.842s] INFO:colcon.colcon_core.shell:Creating package script '/home/swx/COMP0246_S26_Labs/install/franka_description/share/franka_description/package.bash'
+[0.843s] INFO:colcon.colcon_core.shell:Creating package script '/home/swx/COMP0246_S26_Labs/install/franka_description/share/franka_description/package.zsh'
+[0.843s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/swx/COMP0246_S26_Labs/install/franka_description/share/colcon-core/packages/franka_description)
+[0.843s] INFO:colcon.colcon_ros.task.ament_python.build:Building ROS package in '/home/swx/COMP0246_S26_Labs/Lab1/transform_helpers' with build type 'ament_python'
+[0.843s] Level 1:colcon.colcon_core.shell:create_environment_hook('transform_helpers', 'ament_prefix_path')
+[0.843s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/swx/COMP0246_S26_Labs/install/transform_helpers/share/transform_helpers/hook/ament_prefix_path.ps1'
+[0.844s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/swx/COMP0246_S26_Labs/install/transform_helpers/share/transform_helpers/hook/ament_prefix_path.dsv'
+[0.844s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/swx/COMP0246_S26_Labs/install/transform_helpers/share/transform_helpers/hook/ament_prefix_path.sh'
+[0.844s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[0.844s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[0.975s] INFO:colcon.colcon_core.task.python.build:Building Python package in '/home/swx/COMP0246_S26_Labs/Lab1/transform_helpers'
+[0.975s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[0.976s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[0.978s] DEBUG:colcon.colcon_core.task.python.build:Available setuptools 'develop' options: --install-dir, --index-url, --dry-run, --version, --no-deps, --uninstall, --find-links, --prefix, --allow-hosts, --always-unzip, --no-find-links, --help, --no-user-cfg, --multi-version, --record, --zip-ok, --verbose, --install-layout, --editable, --upgrade, --script-dir, --site-dirs, --optimize, --local-snapshots-ok, --egg-path, --force-installation-into-system-dir, --always-copy, --quiet, --user, --exclude-scripts, --build-directory
+[0.980s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/swx/COMP0246_S26_Labs/build/youbot_description': PYTHONPATH=/home/swx/COMP0246_S26_Labs/build/youbot_description/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/swx/COMP0246_S26_Labs/install/youbot_description/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py develop --editable --build-directory /home/swx/COMP0246_S26_Labs/build/youbot_description/build --no-deps symlink_data
+[1.131s] DEBUG:colcon.colcon_core.task.python.build:Available setuptools commands: develop, egg_info, install_headers, setopt, dist_info, install_lib, upload, check, build_clib, bdist_egg, build_ext, register, install_egg_info, clean, rotate, symlink_data, build, install_data, test, build_py, bdist, sdist, bdist_dumb, easy_install, saveopts, install_scripts, upload_docs, alias, install, build_scripts, bdist_rpm
+[1.192s] Level 1:colcon.colcon_core.shell:create_environment_hook('youbot_description', 'pythonpath_develop')
+[1.192s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/swx/COMP0246_S26_Labs/build/youbot_description/share/youbot_description/hook/pythonpath_develop.ps1'
+[1.192s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/swx/COMP0246_S26_Labs/build/youbot_description' returned '0': PYTHONPATH=/home/swx/COMP0246_S26_Labs/build/youbot_description/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/swx/COMP0246_S26_Labs/install/youbot_description/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py develop --editable --build-directory /home/swx/COMP0246_S26_Labs/build/youbot_description/build --no-deps symlink_data
+[1.193s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/swx/COMP0246_S26_Labs/build/youbot_description/share/youbot_description/hook/pythonpath_develop.dsv'
+[1.193s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/swx/COMP0246_S26_Labs/build/youbot_description/share/youbot_description/hook/pythonpath_develop.sh'
+[1.193s] Level 1:colcon.colcon_core.environment:checking '/home/swx/COMP0246_S26_Labs/install/youbot_description' for CMake module files
+[1.194s] Level 1:colcon.colcon_core.environment:checking '/home/swx/COMP0246_S26_Labs/install/youbot_description' for CMake config files
+[1.194s] Level 1:colcon.colcon_core.environment:checking '/home/swx/COMP0246_S26_Labs/install/youbot_description/lib'
+[1.194s] Level 1:colcon.colcon_core.environment:checking '/home/swx/COMP0246_S26_Labs/install/youbot_description/bin'
+[1.194s] Level 1:colcon.colcon_core.environment:checking '/home/swx/COMP0246_S26_Labs/install/youbot_description/lib/pkgconfig/youbot_description.pc'
+[1.195s] Level 1:colcon.colcon_core.environment:checking '/home/swx/COMP0246_S26_Labs/install/youbot_description/lib/python3.10/site-packages'
+[1.195s] Level 1:colcon.colcon_core.shell:create_environment_hook('youbot_description', 'pythonpath')
+[1.195s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/swx/COMP0246_S26_Labs/install/youbot_description/share/youbot_description/hook/pythonpath.ps1'
+[1.195s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/swx/COMP0246_S26_Labs/install/youbot_description/share/youbot_description/hook/pythonpath.dsv'
+[1.195s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/swx/COMP0246_S26_Labs/install/youbot_description/share/youbot_description/hook/pythonpath.sh'
+[1.196s] Level 1:colcon.colcon_core.environment:checking '/home/swx/COMP0246_S26_Labs/install/youbot_description/bin'
+[1.196s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(youbot_description)
+[1.196s] INFO:colcon.colcon_core.shell:Creating package script '/home/swx/COMP0246_S26_Labs/install/youbot_description/share/youbot_description/package.ps1'
+[1.196s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/swx/COMP0246_S26_Labs/install/youbot_description/share/youbot_description/package.dsv'
+[1.196s] INFO:colcon.colcon_core.shell:Creating package script '/home/swx/COMP0246_S26_Labs/install/youbot_description/share/youbot_description/package.sh'
+[1.197s] INFO:colcon.colcon_core.shell:Creating package script '/home/swx/COMP0246_S26_Labs/install/youbot_description/share/youbot_description/package.bash'
+[1.197s] INFO:colcon.colcon_core.shell:Creating package script '/home/swx/COMP0246_S26_Labs/install/youbot_description/share/youbot_description/package.zsh'
+[1.197s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/swx/COMP0246_S26_Labs/install/youbot_description/share/colcon-core/packages/youbot_description)
+[1.269s] DEBUG:colcon.colcon_core.task.python.build:Available setuptools 'develop' options: --install-dir, --index-url, --dry-run, --version, --no-deps, --uninstall, --find-links, --prefix, --allow-hosts, --always-unzip, --no-find-links, --help, --no-user-cfg, --multi-version, --record, --zip-ok, --verbose, --install-layout, --editable, --upgrade, --script-dir, --site-dirs, --optimize, --local-snapshots-ok, --egg-path, --force-installation-into-system-dir, --always-copy, --quiet, --user, --exclude-scripts, --build-directory
+[1.271s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/swx/COMP0246_S26_Labs/build/transform_helpers': PYTHONPATH=/home/swx/COMP0246_S26_Labs/build/transform_helpers/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/swx/COMP0246_S26_Labs/install/transform_helpers/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py develop --editable --build-directory /home/swx/COMP0246_S26_Labs/build/transform_helpers/build --no-deps symlink_data
+[1.479s] Level 1:colcon.colcon_core.shell:create_environment_hook('transform_helpers', 'pythonpath_develop')
+[1.479s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/swx/COMP0246_S26_Labs/build/transform_helpers/share/transform_helpers/hook/pythonpath_develop.ps1'
+[1.480s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/swx/COMP0246_S26_Labs/build/transform_helpers' returned '0': PYTHONPATH=/home/swx/COMP0246_S26_Labs/build/transform_helpers/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/swx/COMP0246_S26_Labs/install/transform_helpers/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py develop --editable --build-directory /home/swx/COMP0246_S26_Labs/build/transform_helpers/build --no-deps symlink_data
+[1.480s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/swx/COMP0246_S26_Labs/build/transform_helpers/share/transform_helpers/hook/pythonpath_develop.dsv'
+[1.480s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/swx/COMP0246_S26_Labs/build/transform_helpers/share/transform_helpers/hook/pythonpath_develop.sh'
+[1.480s] Level 1:colcon.colcon_core.environment:checking '/home/swx/COMP0246_S26_Labs/install/transform_helpers' for CMake module files
+[1.481s] Level 1:colcon.colcon_core.environment:checking '/home/swx/COMP0246_S26_Labs/install/transform_helpers' for CMake config files
+[1.481s] Level 1:colcon.colcon_core.environment:checking '/home/swx/COMP0246_S26_Labs/install/transform_helpers/lib'
+[1.481s] Level 1:colcon.colcon_core.environment:checking '/home/swx/COMP0246_S26_Labs/install/transform_helpers/bin'
+[1.481s] Level 1:colcon.colcon_core.environment:checking '/home/swx/COMP0246_S26_Labs/install/transform_helpers/lib/pkgconfig/transform_helpers.pc'
+[1.481s] Level 1:colcon.colcon_core.environment:checking '/home/swx/COMP0246_S26_Labs/install/transform_helpers/lib/python3.10/site-packages'
+[1.481s] Level 1:colcon.colcon_core.shell:create_environment_hook('transform_helpers', 'pythonpath')
+[1.481s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/swx/COMP0246_S26_Labs/install/transform_helpers/share/transform_helpers/hook/pythonpath.ps1'
+[1.481s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/swx/COMP0246_S26_Labs/install/transform_helpers/share/transform_helpers/hook/pythonpath.dsv'
+[1.482s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/swx/COMP0246_S26_Labs/install/transform_helpers/share/transform_helpers/hook/pythonpath.sh'
+[1.482s] Level 1:colcon.colcon_core.environment:checking '/home/swx/COMP0246_S26_Labs/install/transform_helpers/bin'
+[1.482s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(transform_helpers)
+[1.482s] INFO:colcon.colcon_core.shell:Creating package script '/home/swx/COMP0246_S26_Labs/install/transform_helpers/share/transform_helpers/package.ps1'
+[1.483s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/swx/COMP0246_S26_Labs/install/transform_helpers/share/transform_helpers/package.dsv'
+[1.483s] INFO:colcon.colcon_core.shell:Creating package script '/home/swx/COMP0246_S26_Labs/install/transform_helpers/share/transform_helpers/package.sh'
+[1.483s] INFO:colcon.colcon_core.shell:Creating package script '/home/swx/COMP0246_S26_Labs/install/transform_helpers/share/transform_helpers/package.bash'
+[1.483s] INFO:colcon.colcon_core.shell:Creating package script '/home/swx/COMP0246_S26_Labs/install/transform_helpers/share/transform_helpers/package.zsh'
+[1.483s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/swx/COMP0246_S26_Labs/install/transform_helpers/share/colcon-core/packages/transform_helpers)
+[1.484s] INFO:colcon.colcon_ros.task.ament_python.build:Building ROS package in '/home/swx/COMP0246_S26_Labs/Lab3/youbot_kinematics' with build type 'ament_python'
+[1.484s] Level 1:colcon.colcon_core.shell:create_environment_hook('youbot_kinematics', 'ament_prefix_path')
+[1.484s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/swx/COMP0246_S26_Labs/install/youbot_kinematics/share/youbot_kinematics/hook/ament_prefix_path.ps1'
+[1.484s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/swx/COMP0246_S26_Labs/install/youbot_kinematics/share/youbot_kinematics/hook/ament_prefix_path.dsv'
+[1.484s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/swx/COMP0246_S26_Labs/install/youbot_kinematics/share/youbot_kinematics/hook/ament_prefix_path.sh'
+[1.485s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[1.485s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[1.608s] INFO:colcon.colcon_core.task.python.build:Building Python package in '/home/swx/COMP0246_S26_Labs/Lab3/youbot_kinematics'
+[1.608s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[1.608s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[1.773s] DEBUG:colcon.colcon_core.task.python.build:Available setuptools commands: develop, egg_info, install_headers, setopt, dist_info, install_lib, upload, check, build_clib, bdist_egg, build_ext, register, install_egg_info, clean, rotate, symlink_data, build, install_data, test, build_py, bdist, sdist, bdist_dumb, easy_install, saveopts, install_scripts, upload_docs, alias, install, build_scripts, bdist_rpm
+[1.904s] DEBUG:colcon.colcon_core.task.python.build:Available setuptools 'develop' options: --install-dir, --index-url, --dry-run, --version, --no-deps, --uninstall, --find-links, --prefix, --allow-hosts, --always-unzip, --no-find-links, --help, --no-user-cfg, --multi-version, --record, --zip-ok, --verbose, --install-layout, --editable, --upgrade, --script-dir, --site-dirs, --optimize, --local-snapshots-ok, --egg-path, --force-installation-into-system-dir, --always-copy, --quiet, --user, --exclude-scripts, --build-directory
+[1.905s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/swx/COMP0246_S26_Labs/build/youbot_kinematics': AMENT_PREFIX_PATH=/home/swx/COMP0246_S26_Labs/install/transform_helpers:/home/swx/COMP0246_S26_Labs/install/youbot_description:/opt/ros/humble:/home/swx/COMP0246_S26_Labs/install/youbot_kinematics:/home/swx/COMP0246_S26_Labs/install/franka_description PYTHONPATH=/home/swx/COMP0246_S26_Labs/build/youbot_kinematics/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/swx/COMP0246_S26_Labs/install/youbot_kinematics/lib/python3.10/site-packages:/home/swx/COMP0246_S26_Labs/build/transform_helpers:/home/swx/COMP0246_S26_Labs/install/transform_helpers/lib/python3.10/site-packages:/home/swx/COMP0246_S26_Labs/build/youbot_description:/home/swx/COMP0246_S26_Labs/install/youbot_description/lib/python3.10/site-packages:/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages:/home/swx/COMP0246_S26_Labs/build/youbot_kinematics:/home/swx/COMP0246_S26_Labs/install/youbot_kinematics/lib/python3.10/site-packages /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py develop --editable --build-directory /home/swx/COMP0246_S26_Labs/build/youbot_kinematics/build --no-deps symlink_data
+[2.120s] Level 1:colcon.colcon_core.shell:create_environment_hook('youbot_kinematics', 'pythonpath_develop')
+[2.120s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/swx/COMP0246_S26_Labs/build/youbot_kinematics/share/youbot_kinematics/hook/pythonpath_develop.ps1'
+[2.121s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/swx/COMP0246_S26_Labs/build/youbot_kinematics' returned '0': AMENT_PREFIX_PATH=/home/swx/COMP0246_S26_Labs/install/transform_helpers:/home/swx/COMP0246_S26_Labs/install/youbot_description:/opt/ros/humble:/home/swx/COMP0246_S26_Labs/install/youbot_kinematics:/home/swx/COMP0246_S26_Labs/install/franka_description PYTHONPATH=/home/swx/COMP0246_S26_Labs/build/youbot_kinematics/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/swx/COMP0246_S26_Labs/install/youbot_kinematics/lib/python3.10/site-packages:/home/swx/COMP0246_S26_Labs/build/transform_helpers:/home/swx/COMP0246_S26_Labs/install/transform_helpers/lib/python3.10/site-packages:/home/swx/COMP0246_S26_Labs/build/youbot_description:/home/swx/COMP0246_S26_Labs/install/youbot_description/lib/python3.10/site-packages:/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages:/home/swx/COMP0246_S26_Labs/build/youbot_kinematics:/home/swx/COMP0246_S26_Labs/install/youbot_kinematics/lib/python3.10/site-packages /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py develop --editable --build-directory /home/swx/COMP0246_S26_Labs/build/youbot_kinematics/build --no-deps symlink_data
+[2.121s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/swx/COMP0246_S26_Labs/build/youbot_kinematics/share/youbot_kinematics/hook/pythonpath_develop.dsv'
+[2.121s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/swx/COMP0246_S26_Labs/build/youbot_kinematics/share/youbot_kinematics/hook/pythonpath_develop.sh'
+[2.121s] Level 1:colcon.colcon_core.environment:checking '/home/swx/COMP0246_S26_Labs/install/youbot_kinematics' for CMake module files
+[2.122s] Level 1:colcon.colcon_core.environment:checking '/home/swx/COMP0246_S26_Labs/install/youbot_kinematics' for CMake config files
+[2.122s] Level 1:colcon.colcon_core.environment:checking '/home/swx/COMP0246_S26_Labs/install/youbot_kinematics/lib'
+[2.122s] Level 1:colcon.colcon_core.environment:checking '/home/swx/COMP0246_S26_Labs/install/youbot_kinematics/bin'
+[2.122s] Level 1:colcon.colcon_core.environment:checking '/home/swx/COMP0246_S26_Labs/install/youbot_kinematics/lib/pkgconfig/youbot_kinematics.pc'
+[2.122s] Level 1:colcon.colcon_core.environment:checking '/home/swx/COMP0246_S26_Labs/install/youbot_kinematics/lib/python3.10/site-packages'
+[2.122s] Level 1:colcon.colcon_core.shell:create_environment_hook('youbot_kinematics', 'pythonpath')
+[2.122s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/swx/COMP0246_S26_Labs/install/youbot_kinematics/share/youbot_kinematics/hook/pythonpath.ps1'
+[2.122s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/swx/COMP0246_S26_Labs/install/youbot_kinematics/share/youbot_kinematics/hook/pythonpath.dsv'
+[2.123s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/swx/COMP0246_S26_Labs/install/youbot_kinematics/share/youbot_kinematics/hook/pythonpath.sh'
+[2.123s] Level 1:colcon.colcon_core.environment:checking '/home/swx/COMP0246_S26_Labs/install/youbot_kinematics/bin'
+[2.123s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(youbot_kinematics)
+[2.123s] INFO:colcon.colcon_core.shell:Creating package script '/home/swx/COMP0246_S26_Labs/install/youbot_kinematics/share/youbot_kinematics/package.ps1'
+[2.124s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/swx/COMP0246_S26_Labs/install/youbot_kinematics/share/youbot_kinematics/package.dsv'
+[2.124s] INFO:colcon.colcon_core.shell:Creating package script '/home/swx/COMP0246_S26_Labs/install/youbot_kinematics/share/youbot_kinematics/package.sh'
+[2.124s] INFO:colcon.colcon_core.shell:Creating package script '/home/swx/COMP0246_S26_Labs/install/youbot_kinematics/share/youbot_kinematics/package.bash'
+[2.124s] INFO:colcon.colcon_core.shell:Creating package script '/home/swx/COMP0246_S26_Labs/install/youbot_kinematics/share/youbot_kinematics/package.zsh'
+[2.124s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/swx/COMP0246_S26_Labs/install/youbot_kinematics/share/colcon-core/packages/youbot_kinematics)
+[2.124s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:closing loop
+[2.125s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:loop closed
+[2.125s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:run_until_complete finished with '0'
+[2.125s] DEBUG:colcon.colcon_core.event_reactor:joining thread
+[2.129s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_notification.desktop_notification.terminal_notifier': Not used on non-Darwin systems
+[2.129s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_notification.desktop_notification.win32': Not used on non-Windows systems
+[2.129s] INFO:colcon.colcon_notification.desktop_notification:Sending desktop notification using 'notify2'
+[2.135s] DEBUG:colcon.colcon_core.event_reactor:joined thread
+[2.135s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/swx/COMP0246_S26_Labs/install/local_setup.ps1'
+[2.136s] INFO:colcon.colcon_core.shell:Creating prefix util module '/home/swx/COMP0246_S26_Labs/install/_local_setup_util_ps1.py'
+[2.136s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/swx/COMP0246_S26_Labs/install/setup.ps1'
+[2.137s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/swx/COMP0246_S26_Labs/install/local_setup.sh'
+[2.137s] INFO:colcon.colcon_core.shell:Creating prefix util module '/home/swx/COMP0246_S26_Labs/install/_local_setup_util_sh.py'
+[2.138s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/swx/COMP0246_S26_Labs/install/setup.sh'
+[2.138s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/swx/COMP0246_S26_Labs/install/local_setup.bash'
+[2.138s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/swx/COMP0246_S26_Labs/install/setup.bash'
+[2.139s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/swx/COMP0246_S26_Labs/install/local_setup.zsh'
+[2.139s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/swx/COMP0246_S26_Labs/install/setup.zsh'

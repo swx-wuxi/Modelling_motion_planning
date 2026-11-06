@@ -217,25 +217,56 @@ class YoubotTrajectoryPlanning(Node):
         return q_checkpoints
 
     def ik_position_only(self, pose, q0, lam=0.25, num=500):
-        """This function implements position only inverse kinematics.
+        """Solve one position target by iterative Jacobian pseudoinverse updates.
+
         Args:
-            pose (np.ndarray, 4x4): 4x4 transformations describing the pose of the end-effector position.
-            q0 (np.ndarray, 5x1):A 5x1 array for the initial starting point of the algorithm.
+            pose (np.ndarray, 4x4): Target end-effector pose in the base frame.
+                Only its translation is used; orientation is not constrained.
+            q0 (np.ndarray): Five initial joint angles in radians, shape (5,) or (5, 1).
+            lam (float): Positive step size for each joint update, default 0.25.
+            num (int): Maximum number of updates, default 500.
         Returns:
-            q (np.ndarray, 5x1): The IK solution for the given pose.
-            error (float): The Cartesian error of the solution.
+            q (np.ndarray, 5x1): Final joint estimate in radians.
+            error (float): Final Euclidean position error in metres. An error below
+                1e-5 indicates convergence; otherwise the target has not been solved.
+
+        This local solver may not converge from a distant or singular initial guess.
+        It does not enforce joint limits or collision constraints.
         """
+        pose = np.asarray(pose, dtype=float)
+        initial_joints = np.asarray(q0, dtype=float)
+        if pose.shape != (4, 4) or not np.all(np.isfinite(pose)):
+            raise ValueError("pose must be a finite 4x4 transformation matrix")
+        if initial_joints.shape not in ((5,), (5, 1)) or not np.all(np.isfinite(initial_joints)):
+            raise ValueError("q0 must contain five finite joint angles, shape (5,) or (5, 1)")
+        if not np.isfinite(lam) or lam <= 0:
+            raise ValueError("lam must be a positive finite step size")
+        if not isinstance(num, (int, np.integer)) or num < 0:
+            raise ValueError("num must be a non-negative integer")
 
-        # TODO: Implement this
-        # Some useful notes:
-        # We are only interested in position control - take only the position part of the pose as well as elements of the
-        # Jacobian that will affect the position of the error.
+        q = initial_joints.reshape(5).copy()
+        target_position = pose[:3, 3]
+        tolerance = 1e-5
+        max_step = 0.1  # Limit the joint-update vector length to 0.1 radians.
 
-        # Your code starts here ------------------------------
+        for _ in range(num):
+            current_pose = self.kdl_youbot.forward_kinematics(q.tolist())
+            position_error = target_position - current_pose[:3, 3]
+            if np.linalg.norm(position_error) < tolerance:
+                break
 
-        # Your code ends here ------------------------------
+            position_jacobian = self.kdl_youbot.get_jacobian(q.tolist())[:3, :]
+            # Delta p = J_p Delta q; use the pseudoinverse because J_p is 3x5.
+            joint_step = lam * (np.linalg.pinv(position_jacobian) @ position_error)
+            step_norm = np.linalg.norm(joint_step)
+            if step_norm > max_step:
+                joint_step *= max_step / step_norm
+            q += joint_step
 
-        return q, error
+        # Recompute after the final update so error always describes the returned q.
+        final_pose = self.kdl_youbot.forward_kinematics(q.tolist())
+        error = float(np.linalg.norm(target_position - final_pose[:3, 3]))
+        return q.reshape(5, 1), error
 
 
 def main(args=None):

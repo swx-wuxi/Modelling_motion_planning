@@ -8,8 +8,7 @@ from tf2_ros import TransformBroadcaster
 from geometry_msgs.msg import TransformStamped, Quaternion
 from trajectory_msgs.msg import JointTrajectory
 
-# TODO: Ensure this library is findable and the method is implemented
-from transform_helpers.utils import rotmat2q
+from transform_helpers.utils import rotmat2q, quat2rodrigues
 
 class YoubotKinematicBase(Node):
     def __init__(self, tf_suffix=''):
@@ -117,10 +116,14 @@ class YoubotKinematicBase(Node):
         assert isinstance(alpha, (int, float)), "wrong input type for =alpha"
         assert isinstance(d, (int, float)), "wrong input type for d"
         assert isinstance(theta, (int, float)), "wrong input type for theta"
-        A = np.zeros((4, 4))
-
-        # TODO: implement a method to get the transform matrix using DH Parameters
-      
+        cos_theta, sin_theta = np.cos(theta), np.sin(theta)
+        cos_alpha, sin_alpha = np.cos(alpha), np.sin(alpha)
+        A = np.array([
+            [cos_theta, -sin_theta * cos_alpha, sin_theta * sin_alpha, a * cos_theta],
+            [sin_theta, cos_theta * cos_alpha, -cos_theta * sin_alpha, a * sin_theta],
+            [0.0, sin_alpha, cos_alpha, d],
+            [0.0, 0.0, 0.0, 1.0],
+        ])
 
         assert isinstance(A, np.ndarray), "Output wasn't of type ndarray"
         assert A.shape == (4, 4), "Output had wrong dimensions"
@@ -130,14 +133,18 @@ class YoubotKinematicBase(Node):
         """Convert rotation matrix to rodrigues vector. Done by first converting to quaternion then to rodrigues.
 
         Args:
-            T (np.ndarray): Rotation matrix to convert to rodrigues representation.
+            T (np.ndarray): 3x3 rotation matrix to convert to Rodrigues representation.
 
         Returns:
-            p (np.ndarray): An array for the first 5 elements specifying translation and the last three specifying
-        rotation.
+            p (np.ndarray): Three-element rotation vector whose direction is the rotation axis
+                and whose magnitude is the rotation angle in radians.
         """
         assert isinstance(T, np.ndarray)
 
-        # TODO: Implement a method to convert from a rotation matrix to a rodrigues vector
+        if T.shape != (3, 3):
+            raise ValueError("Expected a 3x3 rotation matrix")
+
+        q = rotmat2q(T)
+        p = quat2rodrigues(q)
 
         return p

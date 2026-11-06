@@ -1,0 +1,32 @@
+[0.444s] Invoking command in '/home/swx/COMP0246_S26_Labs/build/youbot_kinematics': AMENT_PREFIX_PATH=/home/swx/COMP0246_S26_Labs/install/transform_helpers:/home/swx/COMP0246_S26_Labs/install/youbot_description:/home/swx/COMP0246_S26_Labs/install/franka_description:/opt/ros/humble CMAKE_PREFIX_PATH=/home/swx/COMP0246_S26_Labs/install/franka_description PYTHONPATH=/home/swx/COMP0246_S26_Labs/build/youbot_kinematics/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/swx/COMP0246_S26_Labs/install/youbot_kinematics/lib/python3.10/site-packages:/home/swx/COMP0246_S26_Labs/build/transform_helpers:/home/swx/COMP0246_S26_Labs/install/transform_helpers/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py develop --editable --build-directory /home/swx/COMP0246_S26_Labs/build/youbot_kinematics/build --no-deps symlink_data
+[0.563s] running develop
+[0.629s] running egg_info
+[0.629s] creating youbot_kinematics.egg-info
+[0.629s] writing youbot_kinematics.egg-info/PKG-INFO
+[0.629s] writing dependency_links to youbot_kinematics.egg-info/dependency_links.txt
+[0.629s] writing entry points to youbot_kinematics.egg-info/entry_points.txt
+[0.629s] writing requirements to youbot_kinematics.egg-info/requires.txt
+[0.629s] writing top-level names to youbot_kinematics.egg-info/top_level.txt
+[0.629s] writing manifest file 'youbot_kinematics.egg-info/SOURCES.txt'
+[0.630s] reading manifest file 'youbot_kinematics.egg-info/SOURCES.txt'
+[0.630s] writing manifest file 'youbot_kinematics.egg-info/SOURCES.txt'
+[0.631s] running build_ext
+[0.631s] Creating /home/swx/COMP0246_S26_Labs/install/youbot_kinematics/lib/python3.10/site-packages/youbot-kinematics.egg-link (link to .)
+[0.631s] Installing follow_trajectory script to /home/swx/COMP0246_S26_Labs/install/youbot_kinematics/lib/youbot_kinematics
+[0.631s] Installing main_kdl script to /home/swx/COMP0246_S26_Labs/install/youbot_kinematics/lib/youbot_kinematics
+[0.631s] Installing main_student script to /home/swx/COMP0246_S26_Labs/install/youbot_kinematics/lib/youbot_kinematics
+[0.631s] Installing plan_trajectory script to /home/swx/COMP0246_S26_Labs/install/youbot_kinematics/lib/youbot_kinematics
+[0.632s] 
+[0.632s] Installed /home/swx/COMP0246_S26_Labs/build/youbot_kinematics
+[0.632s] running symlink_data
+[0.632s] creating /home/swx/COMP0246_S26_Labs/install/youbot_kinematics/share/ament_index
+[0.632s] creating /home/swx/COMP0246_S26_Labs/install/youbot_kinematics/share/ament_index/resource_index
+[0.632s] creating /home/swx/COMP0246_S26_Labs/install/youbot_kinematics/share/ament_index/resource_index/packages
+[0.632s] symbolically linking /home/swx/COMP0246_S26_Labs/build/youbot_kinematics/resource/youbot_kinematics -> /home/swx/COMP0246_S26_Labs/install/youbot_kinematics/share/ament_index/resource_index/packages
+[0.632s] symbolically linking /home/swx/COMP0246_S26_Labs/build/youbot_kinematics/package.xml -> /home/swx/COMP0246_S26_Labs/install/youbot_kinematics/share/youbot_kinematics
+[0.632s] creating /home/swx/COMP0246_S26_Labs/install/youbot_kinematics/share/youbot_kinematics/config
+[0.632s] symbolically linking /home/swx/COMP0246_S26_Labs/build/youbot_kinematics/config/viz.rviz -> /home/swx/COMP0246_S26_Labs/install/youbot_kinematics/share/youbot_kinematics/config
+[0.632s] symbolically linking /home/swx/COMP0246_S26_Labs/build/youbot_kinematics/config/ros2_controllers.yaml -> /home/swx/COMP0246_S26_Labs/install/youbot_kinematics/share/youbot_kinematics/config
+[0.632s] creating /home/swx/COMP0246_S26_Labs/install/youbot_kinematics/share/youbot_kinematics/launch
+[0.632s] symbolically linking /home/swx/COMP0246_S26_Labs/build/youbot_kinematics/launch/bringup.launch.py -> /home/swx/COMP0246_S26_Labs/install/youbot_kinematics/share/youbot_kinematics/launch
+[0.645s] Invoked command in '/home/swx/COMP0246_S26_Labs/build/youbot_kinematics' returned '0': AMENT_PREFIX_PATH=/home/swx/COMP0246_S26_Labs/install/transform_helpers:/home/swx/COMP0246_S26_Labs/install/youbot_description:/home/swx/COMP0246_S26_Labs/install/franka_description:/opt/ros/humble CMAKE_PREFIX_PATH=/home/swx/COMP0246_S26_Labs/install/franka_description PYTHONPATH=/home/swx/COMP0246_S26_Labs/build/youbot_kinematics/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/swx/COMP0246_S26_Labs/install/youbot_kinematics/lib/python3.10/site-packages:/home/swx/COMP0246_S26_Labs/build/transform_helpers:/home/swx/COMP0246_S26_Labs/install/transform_helpers/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py develop --editable --build-directory /home/swx/COMP0246_S26_Labs/build/youbot_kinematics/build --no-deps symlink_data

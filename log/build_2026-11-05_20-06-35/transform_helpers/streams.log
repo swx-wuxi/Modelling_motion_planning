@@ -1,0 +1,41 @@
+[0.313s] Invoking command in '/home/swx/COMP0246_S26_Labs/build/transform_helpers': AMENT_PREFIX_PATH=/home/swx/COMP0246_S26_Labs/install/franka_description:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/swx/COMP0246_S26_Labs/install/franka_description CONDA_PROMPT_MODIFIER=(base) PYTHONPATH=/home/swx/COMP0246_S26_Labs/build/transform_helpers/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/swx/COMP0246_S26_Labs/install/transform_helpers/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py develop --uninstall --editable --build-directory /home/swx/COMP0246_S26_Labs/build/transform_helpers/build
+[0.430s] running develop
+[0.498s] Removing /home/swx/COMP0246_S26_Labs/install/transform_helpers/lib/python3.10/site-packages/transform-helpers.egg-link (link to .)
+[0.517s] Invoked command in '/home/swx/COMP0246_S26_Labs/build/transform_helpers' returned '0': AMENT_PREFIX_PATH=/home/swx/COMP0246_S26_Labs/install/franka_description:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/swx/COMP0246_S26_Labs/install/franka_description CONDA_PROMPT_MODIFIER=(base) PYTHONPATH=/home/swx/COMP0246_S26_Labs/build/transform_helpers/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/swx/COMP0246_S26_Labs/install/transform_helpers/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py develop --uninstall --editable --build-directory /home/swx/COMP0246_S26_Labs/build/transform_helpers/build
+[0.517s] Invoking command in '/home/swx/COMP0246_S26_Labs/Lab1/transform_helpers': AMENT_PREFIX_PATH=/home/swx/COMP0246_S26_Labs/install/franka_description:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/swx/COMP0246_S26_Labs/install/franka_description CONDA_PROMPT_MODIFIER=(base) PYTHONPATH=/home/swx/COMP0246_S26_Labs/build/transform_helpers/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/swx/COMP0246_S26_Labs/install/transform_helpers/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/transform_helpers build --build-base /home/swx/COMP0246_S26_Labs/build/transform_helpers/build install --record /home/swx/COMP0246_S26_Labs/build/transform_helpers/install.log --install-scripts $base/lib/transform_helpers --single-version-externally-managed install_data --force
+[0.628s] running egg_info
+[0.628s] writing ../../build/transform_helpers/transform_helpers.egg-info/PKG-INFO
+[0.628s] writing dependency_links to ../../build/transform_helpers/transform_helpers.egg-info/dependency_links.txt
+[0.628s] writing entry points to ../../build/transform_helpers/transform_helpers.egg-info/entry_points.txt
+[0.629s] writing requirements to ../../build/transform_helpers/transform_helpers.egg-info/requires.txt
+[0.629s] writing top-level names to ../../build/transform_helpers/transform_helpers.egg-info/top_level.txt
+[0.629s] reading manifest file '../../build/transform_helpers/transform_helpers.egg-info/SOURCES.txt'
+[0.630s] writing manifest file '../../build/transform_helpers/transform_helpers.egg-info/SOURCES.txt'
+[0.630s] running build
+[0.630s] running build_py
+[0.630s] creating /home/swx/COMP0246_S26_Labs/build/transform_helpers/build
+[0.630s] creating /home/swx/COMP0246_S26_Labs/build/transform_helpers/build/lib
+[0.630s] creating /home/swx/COMP0246_S26_Labs/build/transform_helpers/build/lib/transform_helpers
+[0.630s] copying transform_helpers/__init__.py -> /home/swx/COMP0246_S26_Labs/build/transform_helpers/build/lib/transform_helpers
+[0.630s] copying transform_helpers/main.py -> /home/swx/COMP0246_S26_Labs/build/transform_helpers/build/lib/transform_helpers
+[0.630s] copying transform_helpers/utils.py -> /home/swx/COMP0246_S26_Labs/build/transform_helpers/build/lib/transform_helpers
+[0.630s] running install
+[0.631s] running install_lib
+[0.631s] creating /home/swx/COMP0246_S26_Labs/install/transform_helpers/lib/python3.10/site-packages/transform_helpers
+[0.631s] copying /home/swx/COMP0246_S26_Labs/build/transform_helpers/build/lib/transform_helpers/__init__.py -> /home/swx/COMP0246_S26_Labs/install/transform_helpers/lib/python3.10/site-packages/transform_helpers
+[0.631s] copying /home/swx/COMP0246_S26_Labs/build/transform_helpers/build/lib/transform_helpers/main.py -> /home/swx/COMP0246_S26_Labs/install/transform_helpers/lib/python3.10/site-packages/transform_helpers
+[0.631s] copying /home/swx/COMP0246_S26_Labs/build/transform_helpers/build/lib/transform_helpers/utils.py -> /home/swx/COMP0246_S26_Labs/install/transform_helpers/lib/python3.10/site-packages/transform_helpers
+[0.631s] byte-compiling /home/swx/COMP0246_S26_Labs/install/transform_helpers/lib/python3.10/site-packages/transform_helpers/__init__.py to __init__.cpython-310.pyc
+[0.631s] byte-compiling /home/swx/COMP0246_S26_Labs/install/transform_helpers/lib/python3.10/site-packages/transform_helpers/main.py to main.cpython-310.pyc
+[0.632s] byte-compiling /home/swx/COMP0246_S26_Labs/install/transform_helpers/lib/python3.10/site-packages/transform_helpers/utils.py to utils.cpython-310.pyc
+[0.632s] running install_data
+[0.632s] copying resource/transform_helpers -> /home/swx/COMP0246_S26_Labs/install/transform_helpers/share/ament_index/resource_index/packages
+[0.632s] copying package.xml -> /home/swx/COMP0246_S26_Labs/install/transform_helpers/share/transform_helpers
+[0.632s] copying config/viz.rviz -> /home/swx/COMP0246_S26_Labs/install/transform_helpers/share/transform_helpers/config
+[0.632s] copying launch/bringup.launch.py -> /home/swx/COMP0246_S26_Labs/install/transform_helpers/share/transform_helpers/launch
+[0.632s] running install_egg_info
+[0.633s] Copying ../../build/transform_helpers/transform_helpers.egg-info to /home/swx/COMP0246_S26_Labs/install/transform_helpers/lib/python3.10/site-packages/transform_helpers-0.0.0-py3.10.egg-info
+[0.634s] running install_scripts
+[0.644s] Installing main script to /home/swx/COMP0246_S26_Labs/install/transform_helpers/lib/transform_helpers
+[0.644s] writing list of installed files to '/home/swx/COMP0246_S26_Labs/build/transform_helpers/install.log'
+[30.329s] Invoked command in '/home/swx/COMP0246_S26_Labs/Lab1/transform_helpers' returned '0': AMENT_PREFIX_PATH=/home/swx/COMP0246_S26_Labs/install/franka_description:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/swx/COMP0246_S26_Labs/install/franka_description CONDA_PROMPT_MODIFIER=(base) PYTHONPATH=/home/swx/COMP0246_S26_Labs/build/transform_helpers/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/swx/COMP0246_S26_Labs/install/transform_helpers/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/transform_helpers build --build-base /home/swx/COMP0246_S26_Labs/build/transform_helpers/build install --record /home/swx/COMP0246_S26_Labs/build/transform_helpers/install.log --install-scripts $base/lib/transform_helpers --single-version-externally-managed install_data --force

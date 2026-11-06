@@ -1,0 +1,49 @@
+# Q6(b): capital D in the base-frame yz plane, x = 0.650 m.
+# Size: 0.080 m wide and 0.140 m tall, matching the S drawing area.
+# Each time is a segment duration in seconds, not an absolute arrival time.
+# Planned duration: 6 s approach + 12 x 1 s drawing segments = 18 s.
+# Draw up the left stem, then around the curved side back to the start.
+joint_names:
+  - fr3_joint1
+  - fr3_joint2
+  - fr3_joint3
+  - fr3_joint4
+  - fr3_joint5
+  - fr3_joint6
+  - fr3_joint7
+
+waypoints:
+  cartesion:
+    # 1: Approach the bottom-left corner.
+    - position: [0.650, -0.105, 0.250]
+      time: 6.0
+
+    # 2-5: Draw the straight stem upwards.
+    - position: [0.650, -0.105, 0.285]
+      time: 1.0
+    - position: [0.650, -0.105, 0.320]
+      time: 1.0
+    - position: [0.650, -0.105, 0.355]
+      time: 1.0
+    - position: [0.650, -0.105, 0.390]
+      time: 1.0
+
+    # 6-9: Follow the upper half of the rounded side.
+    - position: [0.650, -0.074385, 0.384672]
+      time: 1.0
+    - position: [0.650, -0.048431, 0.369497]
+      time: 1.0
+    - position: [0.650, -0.031090, 0.346788]
+      time: 1.0
+    - position: [0.650, -0.025, 0.320]
+      time: 1.0
+
+    # 10-13: Follow the lower half and close D at the bottom-left corner.
+    - position: [0.650, -0.031090, 0.293212]
+      time: 1.0
+    - position: [0.650, -0.048431, 0.270503]
+      time: 1.0
+    - position: [0.650, -0.074385, 0.255328]
+      time: 1.0
+    - position: [0.650, -0.105, 0.250]
+      time: 1.0

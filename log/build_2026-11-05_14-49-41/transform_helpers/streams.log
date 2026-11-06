@@ -1,0 +1,28 @@
+[0.432s] Invoking command in '/home/swx/COMP0246_S26_Labs/build/transform_helpers': AMENT_PREFIX_PATH=/home/swx/COMP0246_S26_Labs/install/franka_description:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/swx/COMP0246_S26_Labs/install/franka_description PYTHONPATH=/home/swx/COMP0246_S26_Labs/build/transform_helpers/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/swx/COMP0246_S26_Labs/install/transform_helpers/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py develop --editable --build-directory /home/swx/COMP0246_S26_Labs/build/transform_helpers/build --no-deps symlink_data
+[0.556s] running develop
+[0.622s] running egg_info
+[0.622s] creating transform_helpers.egg-info
+[0.622s] writing transform_helpers.egg-info/PKG-INFO
+[0.623s] writing dependency_links to transform_helpers.egg-info/dependency_links.txt
+[0.623s] writing entry points to transform_helpers.egg-info/entry_points.txt
+[0.623s] writing requirements to transform_helpers.egg-info/requires.txt
+[0.623s] writing top-level names to transform_helpers.egg-info/top_level.txt
+[0.623s] writing manifest file 'transform_helpers.egg-info/SOURCES.txt'
+[0.624s] reading manifest file 'transform_helpers.egg-info/SOURCES.txt'
+[0.624s] writing manifest file 'transform_helpers.egg-info/SOURCES.txt'
+[0.625s] running build_ext
+[0.625s] Creating /home/swx/COMP0246_S26_Labs/install/transform_helpers/lib/python3.10/site-packages/transform-helpers.egg-link (link to .)
+[0.625s] Installing main script to /home/swx/COMP0246_S26_Labs/install/transform_helpers/lib/transform_helpers
+[0.625s] 
+[0.625s] Installed /home/swx/COMP0246_S26_Labs/build/transform_helpers
+[0.625s] running symlink_data
+[0.625s] creating /home/swx/COMP0246_S26_Labs/install/transform_helpers/share/ament_index
+[0.625s] creating /home/swx/COMP0246_S26_Labs/install/transform_helpers/share/ament_index/resource_index
+[0.625s] creating /home/swx/COMP0246_S26_Labs/install/transform_helpers/share/ament_index/resource_index/packages
+[0.625s] symbolically linking /home/swx/COMP0246_S26_Labs/build/transform_helpers/resource/transform_helpers -> /home/swx/COMP0246_S26_Labs/install/transform_helpers/share/ament_index/resource_index/packages
+[0.625s] symbolically linking /home/swx/COMP0246_S26_Labs/build/transform_helpers/package.xml -> /home/swx/COMP0246_S26_Labs/install/transform_helpers/share/transform_helpers
+[0.625s] creating /home/swx/COMP0246_S26_Labs/install/transform_helpers/share/transform_helpers/config
+[0.626s] symbolically linking /home/swx/COMP0246_S26_Labs/build/transform_helpers/config/viz.rviz -> /home/swx/COMP0246_S26_Labs/install/transform_helpers/share/transform_helpers/config
+[0.626s] creating /home/swx/COMP0246_S26_Labs/install/transform_helpers/share/transform_helpers/launch
+[0.626s] symbolically linking /home/swx/COMP0246_S26_Labs/build/transform_helpers/launch/bringup.launch.py -> /home/swx/COMP0246_S26_Labs/install/transform_helpers/share/transform_helpers/launch
+[0.641s] Invoked command in '/home/swx/COMP0246_S26_Labs/build/transform_helpers' returned '0': AMENT_PREFIX_PATH=/home/swx/COMP0246_S26_Labs/install/franka_description:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/swx/COMP0246_S26_Labs/install/franka_description PYTHONPATH=/home/swx/COMP0246_S26_Labs/build/transform_helpers/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/swx/COMP0246_S26_Labs/install/transform_helpers/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py develop --editable --build-directory /home/swx/COMP0246_S26_Labs/build/transform_helpers/build --no-deps symlink_data

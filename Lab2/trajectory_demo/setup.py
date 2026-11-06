@@ -1,4 +1,5 @@
 import os
+from glob import glob
 from setuptools import find_packages, setup
 
 package_name = "trajectory_demo"
@@ -12,7 +13,7 @@ setup(
         (os.path.join("share/", package_name), ["package.xml"]),
         (
             os.path.join("share/", package_name, "cfg"),
-            ["cfg/ros2_controllers.yaml", "cfg/rviz.rviz", "cfg/traj_waypoints.yaml"],
+            glob("cfg/*.yaml") + ["cfg/rviz.rviz"],
         ),
         (os.path.join("share/", package_name, "launch"), ["launch/bringup.launch.py"]),
     ],

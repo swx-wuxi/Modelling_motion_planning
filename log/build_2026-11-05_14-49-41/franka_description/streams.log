@@ -1,0 +1,138 @@
+[0.012s] Invoking command in '/home/swx/COMP0246_S26_Labs/build/franka_description': CMAKE_PREFIX_PATH=/home/swx/COMP0246_S26_Labs/install/youbot_description:/opt/ros/humble /usr/bin/cmake /home/swx/COMP0246_S26_Labs/franka_description -DPython3_EXECUTABLE=/usr/bin/python3 -DAMENT_CMAKE_SYMLINK_INSTALL=1 -DCMAKE_INSTALL_PREFIX=/home/swx/COMP0246_S26_Labs/install/franka_description
+[0.065s] -- The C compiler identification is GNU 11.4.0
+[0.114s] -- The CXX compiler identification is GNU 11.4.0
+[0.120s] -- Detecting C compiler ABI info
+[0.181s] -- Detecting C compiler ABI info - done
+[0.186s] -- Check for working C compiler: /usr/bin/cc - skipped
+[0.186s] -- Detecting C compile features
+[0.186s] -- Detecting C compile features - done
+[0.189s] -- Detecting CXX compiler ABI info
+[0.261s] -- Detecting CXX compiler ABI info - done
+[0.266s] -- Check for working CXX compiler: /usr/bin/c++ - skipped
+[0.266s] -- Detecting CXX compile features
+[0.266s] -- Detecting CXX compile features - done
+[0.269s] -- Found ament_cmake: 1.3.14 (/opt/ros/humble/share/ament_cmake/cmake)
+[0.358s] -- Found Python3: /usr/bin/python3 (found version "3.10.12") found components: Interpreter 
+[0.429s] -- Override CMake install command with custom implementation using symlinks instead of copying resources
+[0.443s] -- Found ament_lint_auto: 0.12.15 (/opt/ros/humble/share/ament_lint_auto/cmake)
+[0.695s] -- Added test 'copyright' to check source files copyright and LICENSE
+[0.706s] -- Added test 'flake8' to check Python code syntax and style conventions
+[0.707s] -- Added test 'lint_cmake' to check CMake code style
+[0.708s] -- Added test 'pep257' to check Python code against some of the docstring style conventions in PEP 257
+[0.714s] -- Added test 'xmllint' to check XML markup files
+[0.715s] -- Configuring done
+[0.717s] -- Generating done
+[0.718s] -- Build files have been written to: /home/swx/COMP0246_S26_Labs/build/franka_description
+[0.722s] Invoked command in '/home/swx/COMP0246_S26_Labs/build/franka_description' returned '0': CMAKE_PREFIX_PATH=/home/swx/COMP0246_S26_Labs/install/youbot_description:/opt/ros/humble /usr/bin/cmake /home/swx/COMP0246_S26_Labs/franka_description -DPython3_EXECUTABLE=/usr/bin/python3 -DAMENT_CMAKE_SYMLINK_INSTALL=1 -DCMAKE_INSTALL_PREFIX=/home/swx/COMP0246_S26_Labs/install/franka_description
+[0.724s] Invoking command in '/home/swx/COMP0246_S26_Labs/build/franka_description': CMAKE_PREFIX_PATH=/home/swx/COMP0246_S26_Labs/install/youbot_description:/opt/ros/humble /usr/bin/cmake --build /home/swx/COMP0246_S26_Labs/build/franka_description -- -j32 -l32
+[0.750s] Invoked command in '/home/swx/COMP0246_S26_Labs/build/franka_description' returned '0': CMAKE_PREFIX_PATH=/home/swx/COMP0246_S26_Labs/install/youbot_description:/opt/ros/humble /usr/bin/cmake --build /home/swx/COMP0246_S26_Labs/build/franka_description -- -j32 -l32
+[0.756s] Invoking command in '/home/swx/COMP0246_S26_Labs/build/franka_description': CMAKE_PREFIX_PATH=/home/swx/COMP0246_S26_Labs/install/youbot_description:/opt/ros/humble /usr/bin/cmake --install /home/swx/COMP0246_S26_Labs/build/franka_description
+[0.761s] -- Install configuration: ""
+[0.762s] -- Execute custom install script
+[0.762s] -- Symlinking: /home/swx/COMP0246_S26_Labs/install/franka_description/share/franka_description//launch/visualize_franka.launch.py
+[0.768s] -- Symlinking: /home/swx/COMP0246_S26_Labs/install/franka_description/share/franka_description//robots/common/franka_arm.ros2_control.xacro
+[0.773s] -- Symlinking: /home/swx/COMP0246_S26_Labs/install/franka_description/share/franka_description//robots/common/franka_arm.xacro
+[0.778s] -- Symlinking: /home/swx/COMP0246_S26_Labs/install/franka_description/share/franka_description//robots/common/franka_robot.xacro
+[0.783s] -- Symlinking: /home/swx/COMP0246_S26_Labs/install/franka_description/share/franka_description//robots/common/utils.xacro
+[0.789s] -- Symlinking: /home/swx/COMP0246_S26_Labs/install/franka_description/share/franka_description//robots/fer/dynamics.yaml
+[0.794s] -- Symlinking: /home/swx/COMP0246_S26_Labs/install/franka_description/share/franka_description//robots/fer/fer.urdf.xacro
+[0.799s] -- Symlinking: /home/swx/COMP0246_S26_Labs/install/franka_description/share/franka_description//robots/fer/inertials.yaml
+[0.804s] -- Symlinking: /home/swx/COMP0246_S26_Labs/install/franka_description/share/franka_description//robots/fer/joint_limits.yaml
+[0.810s] -- Symlinking: /home/swx/COMP0246_S26_Labs/install/franka_description/share/franka_description//robots/fer/kinematics.yaml
+[0.815s] -- Symlinking: /home/swx/COMP0246_S26_Labs/install/franka_description/share/franka_description//robots/fp3/dynamics.yaml
+[0.820s] -- Symlinking: /home/swx/COMP0246_S26_Labs/install/franka_description/share/franka_description//robots/fp3/fp3.urdf.xacro
+[0.826s] -- Symlinking: /home/swx/COMP0246_S26_Labs/install/franka_description/share/franka_description//robots/fp3/inertials.yaml
+[0.831s] -- Symlinking: /home/swx/COMP0246_S26_Labs/install/franka_description/share/franka_description//robots/fp3/joint_limits.yaml
+[0.836s] -- Symlinking: /home/swx/COMP0246_S26_Labs/install/franka_description/share/franka_description//robots/fp3/kinematics.yaml
+[0.841s] -- Symlinking: /home/swx/COMP0246_S26_Labs/install/franka_description/share/franka_description//robots/fr3/dynamics.yaml
+[0.846s] -- Symlinking: /home/swx/COMP0246_S26_Labs/install/franka_description/share/franka_description//robots/fr3/fr3.urdf.xacro
+[0.851s] -- Symlinking: /home/swx/COMP0246_S26_Labs/install/franka_description/share/franka_description//robots/fr3/inertials.yaml
+[0.856s] -- Symlinking: /home/swx/COMP0246_S26_Labs/install/franka_description/share/franka_description//robots/fr3/joint_limits.yaml
+[0.861s] -- Symlinking: /home/swx/COMP0246_S26_Labs/install/franka_description/share/franka_description//robots/fr3/kinematics.yaml
+[0.866s] -- Symlinking: /home/swx/COMP0246_S26_Labs/install/franka_description/share/franka_description//end_effectors/cobot_pump/cobot_pump.urdf.xacro
+[0.871s] -- Symlinking: /home/swx/COMP0246_S26_Labs/install/franka_description/share/franka_description//end_effectors/cobot_pump/cobot_pump_arguments.xacro
+[0.876s] -- Symlinking: /home/swx/COMP0246_S26_Labs/install/franka_description/share/franka_description//end_effectors/cobot_pump/inertials.yaml
+[0.882s] -- Symlinking: /home/swx/COMP0246_S26_Labs/install/franka_description/share/franka_description//end_effectors/common/ee_with_one_link.xacro
+[0.887s] -- Symlinking: /home/swx/COMP0246_S26_Labs/install/franka_description/share/franka_description//end_effectors/common/franka_hand.xacro
+[0.892s] -- Symlinking: /home/swx/COMP0246_S26_Labs/install/franka_description/share/franka_description//end_effectors/common/utils.xacro
+[0.899s] -- Symlinking: /home/swx/COMP0246_S26_Labs/install/franka_description/share/franka_description//end_effectors/franka_hand/franka_hand.urdf.xacro
+[0.904s] -- Symlinking: /home/swx/COMP0246_S26_Labs/install/franka_description/share/franka_description//end_effectors/franka_hand/franka_hand_arguments.xacro
+[0.910s] -- Symlinking: /home/swx/COMP0246_S26_Labs/install/franka_description/share/franka_description//end_effectors/franka_hand/inertials.yaml
+[0.916s] -- Symlinking: /home/swx/COMP0246_S26_Labs/install/franka_description/share/franka_description//meshes/robot_arms/fer/collision/hand.stl
+[0.922s] -- Symlinking: /home/swx/COMP0246_S26_Labs/install/franka_description/share/franka_description//meshes/robot_arms/fer/collision/link0.stl
+[0.927s] -- Symlinking: /home/swx/COMP0246_S26_Labs/install/franka_description/share/franka_description//meshes/robot_arms/fer/collision/link1.stl
+[0.933s] -- Symlinking: /home/swx/COMP0246_S26_Labs/install/franka_description/share/franka_description//meshes/robot_arms/fer/collision/link2.stl
+[0.938s] -- Symlinking: /home/swx/COMP0246_S26_Labs/install/franka_description/share/franka_description//meshes/robot_arms/fer/collision/link3.stl
+[0.943s] -- Symlinking: /home/swx/COMP0246_S26_Labs/install/franka_description/share/franka_description//meshes/robot_arms/fer/collision/link4.stl
+[0.948s] -- Symlinking: /home/swx/COMP0246_S26_Labs/install/franka_description/share/franka_description//meshes/robot_arms/fer/collision/link5.stl
+[0.953s] -- Symlinking: /home/swx/COMP0246_S26_Labs/install/franka_description/share/franka_description//meshes/robot_arms/fer/collision/link6.stl
+[0.958s] -- Symlinking: /home/swx/COMP0246_S26_Labs/install/franka_description/share/franka_description//meshes/robot_arms/fer/collision/link7.stl
+[0.963s] -- Symlinking: /home/swx/COMP0246_S26_Labs/install/franka_description/share/franka_description//meshes/robot_arms/fer/visual/finger.dae
+[0.968s] -- Symlinking: /home/swx/COMP0246_S26_Labs/install/franka_description/share/franka_description//meshes/robot_arms/fer/visual/hand.dae
+[0.973s] -- Symlinking: /home/swx/COMP0246_S26_Labs/install/franka_description/share/franka_description//meshes/robot_arms/fer/visual/link0.dae
+[0.978s] -- Symlinking: /home/swx/COMP0246_S26_Labs/install/franka_description/share/franka_description//meshes/robot_arms/fer/visual/link1.dae
+[0.984s] -- Symlinking: /home/swx/COMP0246_S26_Labs/install/franka_description/share/franka_description//meshes/robot_arms/fer/visual/link2.dae
+[0.989s] -- Symlinking: /home/swx/COMP0246_S26_Labs/install/franka_description/share/franka_description//meshes/robot_arms/fer/visual/link3.dae
+[0.994s] -- Symlinking: /home/swx/COMP0246_S26_Labs/install/franka_description/share/franka_description//meshes/robot_arms/fer/visual/link4.dae
+[0.999s] -- Symlinking: /home/swx/COMP0246_S26_Labs/install/franka_description/share/franka_description//meshes/robot_arms/fer/visual/link5.dae
+[1.006s] -- Symlinking: /home/swx/COMP0246_S26_Labs/install/franka_description/share/franka_description//meshes/robot_arms/fer/visual/link6.dae
+[1.012s] -- Symlinking: /home/swx/COMP0246_S26_Labs/install/franka_description/share/franka_description//meshes/robot_arms/fer/visual/link7.dae
+[1.018s] -- Symlinking: /home/swx/COMP0246_S26_Labs/install/franka_description/share/franka_description//meshes/robot_arms/fp3/collision/link0.stl
+[1.027s] -- Symlinking: /home/swx/COMP0246_S26_Labs/install/franka_description/share/franka_description//meshes/robot_arms/fp3/collision/link1.stl
+[1.033s] -- Symlinking: /home/swx/COMP0246_S26_Labs/install/franka_description/share/franka_description//meshes/robot_arms/fp3/collision/link2.stl
+[1.038s] -- Symlinking: /home/swx/COMP0246_S26_Labs/install/franka_description/share/franka_description//meshes/robot_arms/fp3/collision/link3.stl
+[1.046s] -- Symlinking: /home/swx/COMP0246_S26_Labs/install/franka_description/share/franka_description//meshes/robot_arms/fp3/collision/link4.stl
+[1.052s] -- Symlinking: /home/swx/COMP0246_S26_Labs/install/franka_description/share/franka_description//meshes/robot_arms/fp3/collision/link5.stl
+[1.058s] -- Symlinking: /home/swx/COMP0246_S26_Labs/install/franka_description/share/franka_description//meshes/robot_arms/fp3/collision/link6.stl
+[1.064s] -- Symlinking: /home/swx/COMP0246_S26_Labs/install/franka_description/share/franka_description//meshes/robot_arms/fp3/collision/link7.stl
+[1.070s] -- Symlinking: /home/swx/COMP0246_S26_Labs/install/franka_description/share/franka_description//meshes/robot_arms/fp3/visual/link0.dae
+[1.075s] -- Symlinking: /home/swx/COMP0246_S26_Labs/install/franka_description/share/franka_description//meshes/robot_arms/fp3/visual/link1.dae
+[1.080s] -- Symlinking: /home/swx/COMP0246_S26_Labs/install/franka_description/share/franka_description//meshes/robot_arms/fp3/visual/link2.dae
+[1.085s] -- Symlinking: /home/swx/COMP0246_S26_Labs/install/franka_description/share/franka_description//meshes/robot_arms/fp3/visual/link3.dae
+[1.091s] -- Symlinking: /home/swx/COMP0246_S26_Labs/install/franka_description/share/franka_description//meshes/robot_arms/fp3/visual/link4.dae
+[1.096s] -- Symlinking: /home/swx/COMP0246_S26_Labs/install/franka_description/share/franka_description//meshes/robot_arms/fp3/visual/link5.dae
+[1.102s] -- Symlinking: /home/swx/COMP0246_S26_Labs/install/franka_description/share/franka_description//meshes/robot_arms/fp3/visual/link6.dae
+[1.107s] -- Symlinking: /home/swx/COMP0246_S26_Labs/install/franka_description/share/franka_description//meshes/robot_arms/fp3/visual/link7.dae
+[1.113s] -- Symlinking: /home/swx/COMP0246_S26_Labs/install/franka_description/share/franka_description//meshes/robot_arms/fr3/collision/link0.stl
+[1.118s] -- Symlinking: /home/swx/COMP0246_S26_Labs/install/franka_description/share/franka_description//meshes/robot_arms/fr3/collision/link1.stl
+[1.124s] -- Symlinking: /home/swx/COMP0246_S26_Labs/install/franka_description/share/franka_description//meshes/robot_arms/fr3/collision/link2.stl
+[1.131s] -- Symlinking: /home/swx/COMP0246_S26_Labs/install/franka_description/share/franka_description//meshes/robot_arms/fr3/collision/link3.stl
+[1.137s] -- Symlinking: /home/swx/COMP0246_S26_Labs/install/franka_description/share/franka_description//meshes/robot_arms/fr3/collision/link4.stl
+[1.143s] -- Symlinking: /home/swx/COMP0246_S26_Labs/install/franka_description/share/franka_description//meshes/robot_arms/fr3/collision/link5.stl
+[1.149s] -- Symlinking: /home/swx/COMP0246_S26_Labs/install/franka_description/share/franka_description//meshes/robot_arms/fr3/collision/link6.stl
+[1.154s] -- Symlinking: /home/swx/COMP0246_S26_Labs/install/franka_description/share/franka_description//meshes/robot_arms/fr3/collision/link7.stl
+[1.159s] -- Symlinking: /home/swx/COMP0246_S26_Labs/install/franka_description/share/franka_description//meshes/robot_arms/fr3/visual/link0.dae
+[1.165s] -- Symlinking: /home/swx/COMP0246_S26_Labs/install/franka_description/share/franka_description//meshes/robot_arms/fr3/visual/link1.dae
+[1.171s] -- Symlinking: /home/swx/COMP0246_S26_Labs/install/franka_description/share/franka_description//meshes/robot_arms/fr3/visual/link2.dae
+[1.177s] -- Symlinking: /home/swx/COMP0246_S26_Labs/install/franka_description/share/franka_description//meshes/robot_arms/fr3/visual/link3.dae
+[1.182s] -- Symlinking: /home/swx/COMP0246_S26_Labs/install/franka_description/share/franka_description//meshes/robot_arms/fr3/visual/link4.dae
+[1.187s] -- Symlinking: /home/swx/COMP0246_S26_Labs/install/franka_description/share/franka_description//meshes/robot_arms/fr3/visual/link5.dae
+[1.193s] -- Symlinking: /home/swx/COMP0246_S26_Labs/install/franka_description/share/franka_description//meshes/robot_arms/fr3/visual/link6.dae
+[1.198s] -- Symlinking: /home/swx/COMP0246_S26_Labs/install/franka_description/share/franka_description//meshes/robot_arms/fr3/visual/link7.dae
+[1.204s] -- Symlinking: /home/swx/COMP0246_S26_Labs/install/franka_description/share/franka_description//meshes/robot_ee/cobot_pump/collision/cobot_pump.stl
+[1.209s] -- Symlinking: /home/swx/COMP0246_S26_Labs/install/franka_description/share/franka_description//meshes/robot_ee/cobot_pump/visual/cobot_pump.dae
+[1.214s] -- Symlinking: /home/swx/COMP0246_S26_Labs/install/franka_description/share/franka_description//meshes/robot_ee/franka_hand_black/collision/hand.stl
+[1.219s] -- Symlinking: /home/swx/COMP0246_S26_Labs/install/franka_description/share/franka_description//meshes/robot_ee/franka_hand_black/visual/finger.dae
+[1.225s] -- Symlinking: /home/swx/COMP0246_S26_Labs/install/franka_description/share/franka_description//meshes/robot_ee/franka_hand_black/visual/hand.dae
+[1.230s] -- Symlinking: /home/swx/COMP0246_S26_Labs/install/franka_description/share/franka_description//meshes/robot_ee/franka_hand_white/collision/hand.stl
+[1.236s] -- Symlinking: /home/swx/COMP0246_S26_Labs/install/franka_description/share/franka_description//meshes/robot_ee/franka_hand_white/visual/finger.dae
+[1.241s] -- Symlinking: /home/swx/COMP0246_S26_Labs/install/franka_description/share/franka_description//meshes/robot_ee/franka_hand_white/visual/hand.dae
+[1.247s] -- Symlinking: /home/swx/COMP0246_S26_Labs/install/franka_description/share/franka_description//rviz/visualize_franka.rviz
+[1.253s] -- Symlinking: /home/swx/COMP0246_S26_Labs/install/franka_description/share/franka_description//urdfs/fr3.urdf
+[1.259s] -- Symlinking: /home/swx/COMP0246_S26_Labs/install/franka_description/share/franka_description//urdfs/fr3_franka_hand.urdf
+[1.267s] -- Symlinking: /home/swx/COMP0246_S26_Labs/install/franka_description/share/ament_index/resource_index/package_run_dependencies/franka_description
+[1.276s] -- Symlinking: /home/swx/COMP0246_S26_Labs/install/franka_description/share/ament_index/resource_index/parent_prefix_path/franka_description
+[1.283s] -- Symlinking: /home/swx/COMP0246_S26_Labs/install/franka_description/share/franka_description/environment/ament_prefix_path.sh
+[1.292s] -- Symlinking: /home/swx/COMP0246_S26_Labs/install/franka_description/share/franka_description/environment/ament_prefix_path.dsv
+[1.300s] -- Symlinking: /home/swx/COMP0246_S26_Labs/install/franka_description/share/franka_description/environment/path.sh
+[1.309s] -- Symlinking: /home/swx/COMP0246_S26_Labs/install/franka_description/share/franka_description/environment/path.dsv
+[1.315s] -- Symlinking: /home/swx/COMP0246_S26_Labs/install/franka_description/share/franka_description/local_setup.bash
+[1.320s] -- Symlinking: /home/swx/COMP0246_S26_Labs/install/franka_description/share/franka_description/local_setup.sh
+[1.328s] -- Symlinking: /home/swx/COMP0246_S26_Labs/install/franka_description/share/franka_description/local_setup.zsh
+[1.333s] -- Symlinking: /home/swx/COMP0246_S26_Labs/install/franka_description/share/franka_description/local_setup.dsv
+[1.339s] -- Symlinking: /home/swx/COMP0246_S26_Labs/install/franka_description/share/franka_description/package.dsv
+[1.345s] -- Symlinking: /home/swx/COMP0246_S26_Labs/install/franka_description/share/ament_index/resource_index/packages/franka_description
+[1.351s] -- Symlinking: /home/swx/COMP0246_S26_Labs/install/franka_description/share/franka_description/cmake/franka_descriptionConfig.cmake
+[1.356s] -- Symlinking: /home/swx/COMP0246_S26_Labs/install/franka_description/share/franka_description/cmake/franka_descriptionConfig-version.cmake
+[1.361s] -- Symlinking: /home/swx/COMP0246_S26_Labs/install/franka_description/share/franka_description/package.xml
+[1.370s] Invoked command in '/home/swx/COMP0246_S26_Labs/build/franka_description' returned '0': CMAKE_PREFIX_PATH=/home/swx/COMP0246_S26_Labs/install/youbot_description:/opt/ros/humble /usr/bin/cmake --install /home/swx/COMP0246_S26_Labs/build/franka_description

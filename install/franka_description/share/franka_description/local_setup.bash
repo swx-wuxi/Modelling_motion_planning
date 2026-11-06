@@ -1,0 +1,1 @@
+/home/swx/COMP0246_S26_Labs/build/franka_description/ament_cmake_environment_hooks/local_setup.bash

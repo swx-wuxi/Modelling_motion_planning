@@ -1,0 +1,23 @@
+[0.011s] Invoking command in '/home/swx/COMP0246_S26_Labs/build/franka_description': CMAKE_PREFIX_PATH=/home/swx/COMP0246_S26_Labs/install/youbot_description:/opt/ros/humble CONDA_PROMPT_MODIFIER=(base) /usr/bin/cmake /home/swx/COMP0246_S26_Labs/franka_description -DAMENT_CMAKE_SYMLINK_INSTALL=1 -DCMAKE_INSTALL_PREFIX=/home/swx/COMP0246_S26_Labs/install/franka_description
+[0.021s] -- Found ament_cmake: 1.3.14 (/opt/ros/humble/share/ament_cmake/cmake)
+[0.152s] -- Override CMake install command with custom implementation using symlinks instead of copying resources
+[0.157s] -- Found ament_lint_auto: 0.12.15 (/opt/ros/humble/share/ament_lint_auto/cmake)
+[0.189s] Traceback (most recent call last):
+[0.189s]   File "/opt/ros/humble/share/ament_cmake_core/cmake/core/package_xml_2_cmake.py", line 22, in <module>
+[0.189s]     from catkin_pkg.package import parse_package_string
+[0.190s] ModuleNotFoundError: No module named 'catkin_pkg'
+[0.195s] [31mCMake Error at /opt/ros/humble/share/ament_cmake_core/cmake/core/ament_package_xml.cmake:95 (message):
+[0.195s]   execute_process(/home/swx/miniconda3/bin/python3
+[0.195s]   /opt/ros/humble/share/ament_cmake_core/cmake/core/package_xml_2_cmake.py
+[0.195s]   /home/swx/COMP0246_S26_Labs/franka_description/package.xml
+[0.195s]   /home/swx/COMP0246_S26_Labs/build/franka_description/ament_cmake_core/package.cmake)
+[0.195s]   returned error code 1
+[0.195s] Call Stack (most recent call first):
+[0.195s]   /opt/ros/humble/share/ament_cmake_core/cmake/core/ament_package_xml.cmake:49 (_ament_package_xml)
+[0.195s]   /opt/ros/humble/share/ament_lint_auto/cmake/ament_lint_auto_find_test_dependencies.cmake:31 (ament_package_xml)
+[0.195s]   CMakeLists.txt:22 (ament_lint_auto_find_test_dependencies)
+[0.195s] 
+[0.195s] [0m
+[0.195s] -- Configuring incomplete, errors occurred!
+[0.195s] See also "/home/swx/COMP0246_S26_Labs/build/franka_description/CMakeFiles/CMakeOutput.log".
+[0.199s] Invoked command in '/home/swx/COMP0246_S26_Labs/build/franka_description' returned '1': CMAKE_PREFIX_PATH=/home/swx/COMP0246_S26_Labs/install/youbot_description:/opt/ros/humble CONDA_PROMPT_MODIFIER=(base) /usr/bin/cmake /home/swx/COMP0246_S26_Labs/franka_description -DAMENT_CMAKE_SYMLINK_INSTALL=1 -DCMAKE_INSTALL_PREFIX=/home/swx/COMP0246_S26_Labs/install/franka_description

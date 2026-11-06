@@ -72,19 +72,27 @@ class YoubotKinematicStudent(YoubotKinematicBase):
         assert isinstance(joint, list)
         assert len(joint) == 5
 
-        # Your code starts here ----------------------------
+        end_effector_position = self.forward_kinematics(joint)[:3, 3]
+        jacobian = np.zeros((6, 5))
 
-        # For your solution to match the KDL Jacobian, z0 needs to be set [0, 0, -1] instead of [0, 0, 1], since that is how its defined in the URDF.
-        # Both are correct.
-        # Your code starts here ----------------------------
-       
-        # Your code ends here ------------------------------
+        for i in range(5):
+            # Standard DH: joint i+1 rotates about z_i, expressed in the base frame.
+            frame = self.forward_kinematics(joint, up_to_joint=i)
+            joint_origin = frame[:3, 3]
+            joint_axis = frame[:3, 2]
+
+            # theta_i = offset_i + sign_i * q_i, so d(theta_i)/d(q_i) = sign_i.
+            joint_axis = self.youbot_joint_readings_polarity[i] * joint_axis
+            jacobian[:3, i] = np.cross(
+                joint_axis, end_effector_position - joint_origin
+            )
+            jacobian[3:, i] = joint_axis
+
         assert jacobian.shape == (6, 5)
         return jacobian
 
     def check_singularity(self, joint):
-        """Check for singularity condition given robot joints. Coursework 2 Question 4c.
-        Reference Lecture 5 slide 30.
+        """Check for singularity using det(J.T @ J), as in Lecture 2(b), page 46.
 
         Args:
             joint (list): the state of the robot joints. In a youbot those are revolute
@@ -95,9 +103,14 @@ class YoubotKinematicStudent(YoubotKinematicBase):
         """
         assert isinstance(joint, list)
         assert len(joint) == 5
-        # Your code starts here ----------------------------
+        jacobian = self.get_jacobian(joint)
+        gram_matrix = jacobian.T @ jacobian
+        determinant = np.linalg.det(gram_matrix)
 
-        # Your code ends here ------------------------------
+        # J is 6x5; J.T @ J is 5x5 and is singular exactly when J loses column rank.
+        # Use a tolerance for floating-point arithmetic (lengths are in metres).
+        singularity = bool(abs(determinant) < 1e-12)
+
         assert isinstance(singularity, bool)
         return singularity
 
@@ -120,6 +133,8 @@ def main(args=None):
         print(pose)
         print("jacobian")
         print(jacobian)
+        print("singularity")
+        print(kinematic_student.check_singularity(target_joint_angles))
 
     rclpy.spin(kinematic_student)
 

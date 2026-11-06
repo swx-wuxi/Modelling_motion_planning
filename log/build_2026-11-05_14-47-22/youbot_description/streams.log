@@ -1,0 +1,60 @@
+[0.533s] Invoking command in '/home/swx/COMP0246_S26_Labs/build/youbot_description': CONDA_PROMPT_MODIFIER=(base) PYTHONPATH=/home/swx/COMP0246_S26_Labs/build/youbot_description/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/swx/COMP0246_S26_Labs/install/youbot_description/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py develop --editable --build-directory /home/swx/COMP0246_S26_Labs/build/youbot_description/build --no-deps symlink_data
+[0.658s] running develop
+[0.731s] running egg_info
+[0.731s] creating youbot_description.egg-info
+[0.731s] writing youbot_description.egg-info/PKG-INFO
+[0.732s] writing dependency_links to youbot_description.egg-info/dependency_links.txt
+[0.732s] writing entry points to youbot_description.egg-info/entry_points.txt
+[0.732s] writing requirements to youbot_description.egg-info/requires.txt
+[0.732s] writing top-level names to youbot_description.egg-info/top_level.txt
+[0.732s] writing manifest file 'youbot_description.egg-info/SOURCES.txt'
+[0.734s] reading manifest file 'youbot_description.egg-info/SOURCES.txt'
+[0.734s] writing manifest file 'youbot_description.egg-info/SOURCES.txt'
+[0.735s] running build_ext
+[0.735s] Creating /home/swx/COMP0246_S26_Labs/install/youbot_description/lib/python3.10/site-packages/youbot-description.egg-link (link to .)
+[0.736s] 
+[0.736s] Installed /home/swx/COMP0246_S26_Labs/build/youbot_description
+[0.736s] running symlink_data
+[0.736s] creating /home/swx/COMP0246_S26_Labs/install/youbot_description/share/ament_index
+[0.736s] creating /home/swx/COMP0246_S26_Labs/install/youbot_description/share/ament_index/resource_index
+[0.736s] creating /home/swx/COMP0246_S26_Labs/install/youbot_description/share/ament_index/resource_index/packages
+[0.736s] symbolically linking /home/swx/COMP0246_S26_Labs/build/youbot_description/resource/youbot_description -> /home/swx/COMP0246_S26_Labs/install/youbot_description/share/ament_index/resource_index/packages
+[0.736s] symbolically linking /home/swx/COMP0246_S26_Labs/build/youbot_description/package.xml -> /home/swx/COMP0246_S26_Labs/install/youbot_description/share/youbot_description
+[0.736s] creating /home/swx/COMP0246_S26_Labs/install/youbot_description/share/youbot_description/urdfs
+[0.736s] symbolically linking /home/swx/COMP0246_S26_Labs/build/youbot_description/urdfs/youbot.urdf -> /home/swx/COMP0246_S26_Labs/install/youbot_description/share/youbot_description/urdfs
+[0.736s] creating /home/swx/COMP0246_S26_Labs/install/youbot_description/share/youbot_description/meshes
+[0.736s] creating /home/swx/COMP0246_S26_Labs/install/youbot_description/share/youbot_description/meshes/youbot_base
+[0.736s] symbolically linking /home/swx/COMP0246_S26_Labs/build/youbot_description/meshes/youbot_base/base_convex.dae -> /home/swx/COMP0246_S26_Labs/install/youbot_description/share/youbot_description/meshes/youbot_base
+[0.736s] symbolically linking /home/swx/COMP0246_S26_Labs/build/youbot_description/meshes/youbot_base/base.dae -> /home/swx/COMP0246_S26_Labs/install/youbot_description/share/youbot_description/meshes/youbot_base
+[0.736s] creating /home/swx/COMP0246_S26_Labs/install/youbot_description/share/youbot_description/meshes/sensors
+[0.737s] symbolically linking /home/swx/COMP0246_S26_Labs/build/youbot_description/meshes/sensors/kinect.dae -> /home/swx/COMP0246_S26_Labs/install/youbot_description/share/youbot_description/meshes/sensors
+[0.737s] symbolically linking /home/swx/COMP0246_S26_Labs/build/youbot_description/meshes/sensors/asus_xtion_pro_live_camera.png -> /home/swx/COMP0246_S26_Labs/install/youbot_description/share/youbot_description/meshes/sensors
+[0.737s] symbolically linking /home/swx/COMP0246_S26_Labs/build/youbot_description/meshes/sensors/hokuyo_convex.dae -> /home/swx/COMP0246_S26_Labs/install/youbot_description/share/youbot_description/meshes/sensors
+[0.737s] symbolically linking /home/swx/COMP0246_S26_Labs/build/youbot_description/meshes/sensors/asus_xtion_pro_live_base.png -> /home/swx/COMP0246_S26_Labs/install/youbot_description/share/youbot_description/meshes/sensors
+[0.737s] symbolically linking /home/swx/COMP0246_S26_Labs/build/youbot_description/meshes/sensors/asus_xtion_pro_live_base.dae -> /home/swx/COMP0246_S26_Labs/install/youbot_description/share/youbot_description/meshes/sensors
+[0.737s] symbolically linking /home/swx/COMP0246_S26_Labs/build/youbot_description/meshes/sensors/microsoft_lifecam.dae -> /home/swx/COMP0246_S26_Labs/install/youbot_description/share/youbot_description/meshes/sensors
+[0.737s] symbolically linking /home/swx/COMP0246_S26_Labs/build/youbot_description/meshes/sensors/hokuyo.dae -> /home/swx/COMP0246_S26_Labs/install/youbot_description/share/youbot_description/meshes/sensors
+[0.737s] symbolically linking /home/swx/COMP0246_S26_Labs/build/youbot_description/meshes/sensors/kinect.tga -> /home/swx/COMP0246_S26_Labs/install/youbot_description/share/youbot_description/meshes/sensors
+[0.737s] symbolically linking /home/swx/COMP0246_S26_Labs/build/youbot_description/meshes/sensors/asus_xtion_pro_live_camera.dae -> /home/swx/COMP0246_S26_Labs/install/youbot_description/share/youbot_description/meshes/sensors
+[0.737s] creating /home/swx/COMP0246_S26_Labs/install/youbot_description/share/youbot_description/meshes/youbot_plate
+[0.737s] symbolically linking /home/swx/COMP0246_S26_Labs/build/youbot_description/meshes/youbot_plate/plate.dae -> /home/swx/COMP0246_S26_Labs/install/youbot_description/share/youbot_description/meshes/youbot_plate
+[0.737s] symbolically linking /home/swx/COMP0246_S26_Labs/build/youbot_description/meshes/youbot_plate/plate_convex.dae -> /home/swx/COMP0246_S26_Labs/install/youbot_description/share/youbot_description/meshes/youbot_plate
+[0.737s] creating /home/swx/COMP0246_S26_Labs/install/youbot_description/share/youbot_description/meshes/youbot_gripper
+[0.737s] symbolically linking /home/swx/COMP0246_S26_Labs/build/youbot_description/meshes/youbot_gripper/palm_convex.dae -> /home/swx/COMP0246_S26_Labs/install/youbot_description/share/youbot_description/meshes/youbot_gripper
+[0.737s] symbolically linking /home/swx/COMP0246_S26_Labs/build/youbot_description/meshes/youbot_gripper/palm.dae -> /home/swx/COMP0246_S26_Labs/install/youbot_description/share/youbot_description/meshes/youbot_gripper
+[0.737s] symbolically linking /home/swx/COMP0246_S26_Labs/build/youbot_description/meshes/youbot_gripper/finger.dae -> /home/swx/COMP0246_S26_Labs/install/youbot_description/share/youbot_description/meshes/youbot_gripper
+[0.737s] symbolically linking /home/swx/COMP0246_S26_Labs/build/youbot_description/meshes/youbot_gripper/finger_convex.dae -> /home/swx/COMP0246_S26_Labs/install/youbot_description/share/youbot_description/meshes/youbot_gripper
+[0.737s] creating /home/swx/COMP0246_S26_Labs/install/youbot_description/share/youbot_description/meshes/youbot_arm
+[0.737s] symbolically linking /home/swx/COMP0246_S26_Labs/build/youbot_description/meshes/youbot_arm/arm5_convex.dae -> /home/swx/COMP0246_S26_Labs/install/youbot_description/share/youbot_description/meshes/youbot_arm
+[0.737s] symbolically linking /home/swx/COMP0246_S26_Labs/build/youbot_description/meshes/youbot_arm/arm0.dae -> /home/swx/COMP0246_S26_Labs/install/youbot_description/share/youbot_description/meshes/youbot_arm
+[0.737s] symbolically linking /home/swx/COMP0246_S26_Labs/build/youbot_description/meshes/youbot_arm/arm1.dae -> /home/swx/COMP0246_S26_Labs/install/youbot_description/share/youbot_description/meshes/youbot_arm
+[0.737s] symbolically linking /home/swx/COMP0246_S26_Labs/build/youbot_description/meshes/youbot_arm/arm1_convex.dae -> /home/swx/COMP0246_S26_Labs/install/youbot_description/share/youbot_description/meshes/youbot_arm
+[0.737s] symbolically linking /home/swx/COMP0246_S26_Labs/build/youbot_description/meshes/youbot_arm/arm4.dae -> /home/swx/COMP0246_S26_Labs/install/youbot_description/share/youbot_description/meshes/youbot_arm
+[0.737s] symbolically linking /home/swx/COMP0246_S26_Labs/build/youbot_description/meshes/youbot_arm/arm5.dae -> /home/swx/COMP0246_S26_Labs/install/youbot_description/share/youbot_description/meshes/youbot_arm
+[0.737s] symbolically linking /home/swx/COMP0246_S26_Labs/build/youbot_description/meshes/youbot_arm/arm0_convex.dae -> /home/swx/COMP0246_S26_Labs/install/youbot_description/share/youbot_description/meshes/youbot_arm
+[0.737s] symbolically linking /home/swx/COMP0246_S26_Labs/build/youbot_description/meshes/youbot_arm/arm2_convex.dae -> /home/swx/COMP0246_S26_Labs/install/youbot_description/share/youbot_description/meshes/youbot_arm
+[0.738s] symbolically linking /home/swx/COMP0246_S26_Labs/build/youbot_description/meshes/youbot_arm/arm3.dae -> /home/swx/COMP0246_S26_Labs/install/youbot_description/share/youbot_description/meshes/youbot_arm
+[0.738s] symbolically linking /home/swx/COMP0246_S26_Labs/build/youbot_description/meshes/youbot_arm/arm3_convex.dae -> /home/swx/COMP0246_S26_Labs/install/youbot_description/share/youbot_description/meshes/youbot_arm
+[0.738s] symbolically linking /home/swx/COMP0246_S26_Labs/build/youbot_description/meshes/youbot_arm/arm2.dae -> /home/swx/COMP0246_S26_Labs/install/youbot_description/share/youbot_description/meshes/youbot_arm
+[0.738s] symbolically linking /home/swx/COMP0246_S26_Labs/build/youbot_description/meshes/youbot_arm/arm4_convex.dae -> /home/swx/COMP0246_S26_Labs/install/youbot_description/share/youbot_description/meshes/youbot_arm
+[0.761s] Invoked command in '/home/swx/COMP0246_S26_Labs/build/youbot_description' returned '0': CONDA_PROMPT_MODIFIER=(base) PYTHONPATH=/home/swx/COMP0246_S26_Labs/build/youbot_description/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/swx/COMP0246_S26_Labs/install/youbot_description/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py develop --editable --build-directory /home/swx/COMP0246_S26_Labs/build/youbot_description/build --no-deps symlink_data

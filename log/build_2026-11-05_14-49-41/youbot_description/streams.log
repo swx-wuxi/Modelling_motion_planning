@@ -1,0 +1,16 @@
+[0.507s] Invoking command in '/home/swx/COMP0246_S26_Labs/build/youbot_description': PYTHONPATH=/home/swx/COMP0246_S26_Labs/build/youbot_description/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/swx/COMP0246_S26_Labs/install/youbot_description/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py develop --editable --build-directory /home/swx/COMP0246_S26_Labs/build/youbot_description/build --no-deps symlink_data
+[0.621s] running develop
+[0.686s] running egg_info
+[0.686s] writing youbot_description.egg-info/PKG-INFO
+[0.686s] writing dependency_links to youbot_description.egg-info/dependency_links.txt
+[0.686s] writing entry points to youbot_description.egg-info/entry_points.txt
+[0.686s] writing requirements to youbot_description.egg-info/requires.txt
+[0.686s] writing top-level names to youbot_description.egg-info/top_level.txt
+[0.688s] reading manifest file 'youbot_description.egg-info/SOURCES.txt'
+[0.688s] writing manifest file 'youbot_description.egg-info/SOURCES.txt'
+[0.689s] running build_ext
+[0.689s] Creating /home/swx/COMP0246_S26_Labs/install/youbot_description/lib/python3.10/site-packages/youbot-description.egg-link (link to .)
+[0.689s] 
+[0.689s] Installed /home/swx/COMP0246_S26_Labs/build/youbot_description
+[0.689s] running symlink_data
+[0.707s] Invoked command in '/home/swx/COMP0246_S26_Labs/build/youbot_description' returned '0': PYTHONPATH=/home/swx/COMP0246_S26_Labs/build/youbot_description/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/swx/COMP0246_S26_Labs/install/youbot_description/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py develop --editable --build-directory /home/swx/COMP0246_S26_Labs/build/youbot_description/build --no-deps symlink_data

@@ -1,0 +1,3 @@
+[console_scripts]
+traj_demo = trajectory_demo.traj_demo:main
+
