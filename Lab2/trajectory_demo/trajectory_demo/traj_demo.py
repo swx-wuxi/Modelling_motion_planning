@@ -118,6 +118,7 @@ class TrajDemo(Node):
         assert len(self.traj_cfg["joint_names"]) == self.NJoints
 
         self.created_traj = False
+        self.waiting_for_controller_logged = False
 
         self.get_logger().info(f"got traj cfg:\n{self.traj_cfg}")
 
@@ -153,13 +154,25 @@ class TrajDemo(Node):
         Args:
             msg (JointState): ROS Joint State Message.
         """
-        for i in range(len(msg.name)):
-            n = msg.name[i]
-            pos = msg.position[i]
-            vel = msg.velocity[i]
+        # JointState ordering can differ from the trajectory/KDL joint ordering.
+        # Match names so IK seeds and completion errors use the correct joints.
+        state_indices = {name: index for index, name in enumerate(msg.name)}
+        joint_names = self.traj_cfg["joint_names"]
+        if any(
+            name not in state_indices
+            or state_indices[name] >= len(msg.position)
+            for name in joint_names
+        ):
+            return
 
-            self.current_joint_position[i] = pos
-            self.current_joint_velocity[i] = vel
+        for i, name in enumerate(joint_names):
+            state_index = state_indices[name]
+            self.current_joint_position[i] = msg.position[state_index]
+            self.current_joint_velocity[i] = (
+                msg.velocity[state_index]
+                if state_index < len(msg.velocity)
+                else np.nan
+            )
 
         joint_pos, joint_vel = self.kdl_to_np(
             self.current_joint_position
@@ -207,6 +220,17 @@ class TrajDemo(Node):
         # The message stamp uses that same instant; the starter's one-time
         # publish behaviour is retained inside this extended block.
         if not self.created_traj:
+            # A volatile, publish-once command can be lost during DDS discovery.
+            # Receiving JointState/TF does not imply this publisher is connected.
+            if self.traj_publisher.get_subscription_count() == 0:
+                if not self.waiting_for_controller_logged:
+                    self.get_logger().info(
+                        "Waiting for a subscriber on "
+                        "/franka_arm_controller/joint_trajectory before planning."
+                    )
+                    self.waiting_for_controller_logged = True
+                return
+
             joint_traj = self.create_traj()
 
             # Remember the final joint angles for the completion check.
