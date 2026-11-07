@@ -52,8 +52,8 @@ class YoubotTrajectoryPlanning(Node):
             traj (JointTrajectory): A list of JointTrajectory points giving the robot joint positions to achieve in a
             given time period.
         """
-        # TODO: implement this
-        # Steps to solving Q6.
+        
+        ##### Detailed Steps to solving Q1.
         # 1. Load in targets from the bagfile (checkpoint data and target joint positions).
         # 2. Compute the shortest path achievable visiting each checkpoint Cartesian position.
         # 3. Determine intermediate checkpoints to achieve a linear path between each checkpoint and have a full list of
@@ -63,7 +63,7 @@ class YoubotTrajectoryPlanning(Node):
 
         # Your code starts here ------------------------------
 
-        # Read the five arm joints by name, ignoring gripper joints and message
+        # 1. Read the five arm joints by name, ignoring gripper joints and message
         # ordering. Process callbacks until feedback and the controller are ready.
         from sensor_msgs.msg import JointState
         from rclpy.duration import Duration
@@ -72,6 +72,7 @@ class YoubotTrajectoryPlanning(Node):
         joint_names = [f"arm_joint_{i}" for i in range(1, 6)]
         measured = {"joints": None}
 
+        # (a) read current joint states （5 arm joints)
         def read_arm_state(msg):
             positions = dict(zip(msg.name, msg.position))
             if all(name in positions for name in joint_names):
@@ -79,6 +80,8 @@ class YoubotTrajectoryPlanning(Node):
                 if np.all(np.isfinite(joints)):
                     measured["joints"] = joints
 
+        # (b) wait for the joint-states callback 
+        # Get the current joint positions and store it in the KDL youbot object.
         subscription = self.create_subscription(
             JointState, "/joint_states", read_arm_state, 10
         )
@@ -93,15 +96,16 @@ class YoubotTrajectoryPlanning(Node):
             self.destroy_subscription(subscription)
         self.kdl_youbot.current_joint_position = measured["joints"]
 
-        # Convert joint targets to Cartesian checkpoints and find the shortest
-        # open tour from the measured start; the route does not return home.
+        # (c) Load all targets and compute the shortest path through them. 
+        # (The first target is the measured start.)
         target_tfs, target_joints = self.load_targets()
         order, distance = self.get_shortest_path(target_tfs)
         self.get_logger().info(
             f"Shortest checkpoint order: {order.tolist()}; length: {distance:.6f} m"
         )
 
-        # Insert 30 interior samples per straight segment. Solve position IK
+        # (d) Insert 30 interior samples per straight segment. 
+        # Solve position IK
         # sequentially, using the previous solution as the next initial guess.
         num_intermediate_points = 30
         full_tfs = self.intermediate_tfs(
@@ -409,7 +413,7 @@ class YoubotTrajectoryPlanning(Node):
     def full_checkpoints_to_joints(self, full_checkpoint_tfs, init_joint_position):
         """This function takes the full set of checkpoint transformations, including intermediate checkpoints,
         and computes the associated joint positions by calling the ik_position_only() function.
-        Args:
+        Args:(Input)
             full_checkpoint_tfs (np.ndarray, 4x4xn): 4x4xn transformations describing all the desired poses of the end-effector
             to follow the desired path.
             init_joint_position (np.ndarray):A 5x1 array for the initial joint position of the robot.
@@ -425,7 +429,7 @@ class YoubotTrajectoryPlanning(Node):
         initial_joints = np.asarray(init_joint_position, dtype=float).reshape(5)
         num_samples = full_checkpoint_tfs.shape[2]
         q_checkpoints = np.full((5, num_samples), np.nan)
-        seed = initial_joints.copy()
+        seed = initial_joints.copy() # Guess the first sample with the measured start, not a supplied target
         forward_count = 0
         for i in range(num_samples):
             joints, error = self.ik_position_only(full_checkpoint_tfs[:, :, i], seed, num=2000)
