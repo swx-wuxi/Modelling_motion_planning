@@ -23,6 +23,7 @@ Q1(c): ROS 2 node for publishing the end-effector transform based on joint-state
 Q1(d): Trajectory planning with modified target datasets.
 
 ### 2. Requirements
+- Ubuntu 22.04
 
 - ROS 2 Humble
 
