@@ -43,7 +43,7 @@ TARGET_JOINT_POSITIONS_SET_3 = np.array([
 
 # Change only this selector, rebuild the package, and restart the planner.
 # Supported values: "original", "set_1", "set_2", "set_3".
-ACTIVE_TARGET_SET = "set_3"
+ACTIVE_TARGET_SET = "original"
 TARGET_DATASETS = {
     "original": TARGET_JOINT_POSITIONS_ORIGINAL,
     "set_1": TARGET_JOINT_POSITIONS_SET_1,

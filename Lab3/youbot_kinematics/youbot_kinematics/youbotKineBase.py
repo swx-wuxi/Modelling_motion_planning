@@ -54,7 +54,19 @@ class YoubotKinematicBase(Node):
             msg (JointState): Joint state message containing current robot joint position.
 
         """
-        self.current_joint_position = list(msg.position)
+        # JointState ordering is not fixed and may include gripper joints.
+        # Ignore incomplete or invalid feedback without replacing the last state.
+        joint_names = [f'arm_joint_{i}' for i in range(1, 6)]
+        if len(msg.name) != len(msg.position):
+            return
+        positions = dict(zip(msg.name, msg.position))
+        if not all(name in positions for name in joint_names):
+            return
+        joints = [float(positions[name]) for name in joint_names]
+        if not np.all(np.isfinite(joints)):
+            return
+
+        self.current_joint_position = joints
         current_pose = self.forward_kinematics(self.current_joint_position)
         self.broadcast_pose(current_pose)
 
