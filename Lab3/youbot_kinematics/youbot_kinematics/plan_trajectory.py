@@ -27,6 +27,179 @@ class YoubotTrajectoryPlanning(Node):
         )
         self.checkpoint_pub = self.create_publisher(Marker, "checkpoint_positions", 100)
 
+    def _joint_position_limits(self):
+        """Read limits in the same joint coordinates as JointState and the URDF."""
+        if not hasattr(self, '_position_limits'):
+            from pathlib import Path
+            import xml.etree.ElementTree as ET
+            from ament_index_python.packages import (
+                PackageNotFoundError, get_package_share_directory,
+            )
+
+            try:
+                description = Path(get_package_share_directory('youbot_description'))
+            except PackageNotFoundError:
+                description = Path(__file__).resolve().parents[2] / 'youbot_description'
+            robot = ET.parse(description / 'urdfs' / 'youbot.urdf').getroot()
+            joints = {joint.attrib['name']: joint for joint in robot.findall('joint')}
+            limits = [joints[f'arm_joint_{i}'].find('limit') for i in range(1, 6)]
+            lower = np.array([float(limit.attrib['lower']) for limit in limits])
+            upper = np.array([float(limit.attrib['upper']) for limit in limits])
+            self._position_limits = lower, upper
+        return self._position_limits
+
+    def _bounded_checkpoint_route(self, target_tfs, target_joints):
+        """Find the shortest route in the direct/axis transition graph.
+
+        Each target may have two base-angle branches. Direct edges preserve a
+        branch; an axis transfer permits a continuous, bounded change of branch.
+        Dynamic programming chooses both the target order and these branches.
+        """
+        lower, upper = self._joint_position_limits()
+        initial = target_joints[:, 0].copy()
+        if np.any(initial < lower) or np.any(initial > upper):
+            raise RuntimeError('The measured starting joints exceed URDF limits.')
+        dh = self.kdl_youbot.dh_params
+        polarity = self.kdl_youbot.youbot_joint_readings_polarity[0]
+        reach = abs(dh['a'][1]) + abs(dh['a'][2]) + np.hypot(dh['a'][3], dh['d'][4])
+
+        def side_of(position, base):
+            theta = dh['theta'][0] + polarity * base
+            radial = position[:2] @ np.array([np.cos(theta), np.sin(theta)])
+            return 1 if radial >= 0.0 else -1
+
+        states = []
+        count = target_tfs.shape[2] - 1
+        for target in range(count):
+            pose = target_tfs[:, :, target + 1]
+            supplied = target_joints[:, target + 1].copy()
+            supplied[4] = initial[4]
+            if np.any(supplied < lower) or np.any(supplied > upper):
+                raise RuntimeError(f'Target {target + 1} is outside URDF joint limits.')
+            radius = np.linalg.norm(pose[:2, 3])
+            heading = np.arctan2(pose[1, 3], pose[0, 3])
+            for side in (1, -1):
+                if np.hypot(side * radius - dh['a'][0], pose[2, 3] - dh['d'][0]) > reach + 1e-9:
+                    continue
+                raw = (heading + (np.pi if side < 0 else 0.0) - dh['theta'][0]) / polarity
+                first = int(np.ceil((lower[0] - raw) / (2.0 * np.pi)))
+                last = int(np.floor((upper[0] - raw) / (2.0 * np.pi)))
+                for turn in range(first, last + 1):
+                    base = raw + turn * 2.0 * np.pi
+                    guesses = [supplied.copy()]
+                    guesses += [np.array([base, a, b, c, initial[4]]) for a, b, c in (
+                        (1.2, -2.0, 1.5), (0.9, -1.5, 1.0), (1.5, -2.5, 1.8))]
+                    witness = None
+                    for guess in guesses:
+                        guess[0] = base
+                        solution, error = self.ik_position_only(pose, guess, num=600, base_angle=base)
+                        if error < 1e-5:
+                            witness = solution.reshape(5)
+                            break
+                    if witness is not None:
+                        states.append({'target': target, 'pose': pose, 'base': float(base),
+                                       'side': side, 'joints': witness})
+            if not any(state['target'] == target for state in states):
+                raise RuntimeError(f'No bounded position-IK branch for target {target + 1}.')
+
+        start = {'target': -1, 'pose': target_tfs[:, :, 0], 'base': float(initial[0]),
+                 'side': side_of(target_tfs[:3, 3, 0], initial[0]), 'joints': initial}
+
+        def edge(left, right):
+            a, b = left['pose'][:3, 3], right['pose'][:3, 3]
+            fractions = np.linspace(0.0, 1.0, 17)
+            positions = a[:, None] * (1.0 - fractions) + b[:, None] * fractions
+            radii = np.linalg.norm(positions[:2], axis=0)
+            direct = left['side'] == right['side'] and abs(right['base'] - left['base']) < np.pi - 1e-8
+            direct = direct and np.min(radii) > 1e-7
+            radial = left['side'] * radii - dh['a'][0]
+            direct = direct and np.all(np.hypot(radial, positions[2] - dh['d'][0]) <= reach + 1e-9)
+            if direct:
+                return float(np.linalg.norm(b - a)), False
+            radius_a, radius_b = np.linalg.norm(a[:2]), np.linalg.norm(b[:2])
+            return float(np.hypot(radius_a + radius_b, b[2] - a[2])), True
+
+        size = len(states)
+        costs = np.full((1 << count, size), np.inf)
+        parents = {}
+        edges = {(i, j): edge(states[i], states[j]) for i in range(size) for j in range(size)
+                 if states[i]['target'] != states[j]['target']}
+        for i, state in enumerate(states):
+            mask = 1 << state['target']
+            costs[mask, i] = edge(start, state)[0]
+            parents[mask, i] = None
+        for mask in range(1, 1 << count):
+            for i, state in enumerate(states):
+                if not np.isfinite(costs[mask, i]):
+                    continue
+                for j, following in enumerate(states):
+                    bit = 1 << following['target']
+                    if mask & bit:
+                        continue
+                    next_mask = mask | bit
+                    score = costs[mask, i] + edges[i, j][0]
+                    if score < costs[next_mask, j]:
+                        costs[next_mask, j] = score
+                        parents[next_mask, j] = (mask, i)
+        mask = (1 << count) - 1
+        index = int(np.argmin(costs[mask]))
+        route = []
+        while True:
+            route.append(states[index])
+            previous = parents[mask, index]
+            if previous is None:
+                break
+            mask, index = previous
+        route.reverse()
+
+        poses = [start['pose']]
+        bases = [start['base']]
+        sides = []
+        left = start
+        for right in route:
+            if edge(left, right)[1]:
+                a, b = left['pose'][:3, 3], right['pose'][:3, 3]
+                ra, rb = np.linalg.norm(a[:2]), np.linalg.norm(b[:2])
+                axis = left['pose'].copy()
+                axis[:2, 3] = 0.0
+                axis[2, 3] = (rb * a[2] + ra * b[2]) / (ra + rb) if ra + rb > 1e-12 else a[2]
+                poses.extend([axis, axis.copy()])
+                bases.extend([left['base'], right['base']])
+                sides.extend([left['side'], 0])
+            poses.append(right['pose'])
+            bases.append(right['base'])
+            sides.append(right['side'])
+            left = right
+        self.get_logger().info(
+            f'Bounded checkpoint order: {[0] + [state["target"] + 1 for state in route]}; '
+            f'{len(poses) - count - 1} axis transition checkpoints.'
+        )
+        return np.stack(poses, axis=2), np.asarray(bases), sides
+
+    def _base_angles_for_route(self, full_tfs, checkpoint_bases, segment_sides, density):
+        """Choose the bounded base angle for every Cartesian interpolation sample."""
+        dh = self.kdl_youbot.dh_params
+        polarity = self.kdl_youbot.youbot_joint_readings_polarity[0]
+        lower, upper = self._joint_position_limits()
+        values = np.empty(full_tfs.shape[2])
+        stride = density + 1
+        for segment, side in enumerate(segment_sides):
+            for offset in range(stride + 1):
+                index = segment * stride + offset
+                fraction = offset / stride
+                reference = (1.0 - fraction) * checkpoint_bases[segment] + fraction * checkpoint_bases[segment + 1]
+                position = full_tfs[:3, 3, index]
+                if side == 0 or np.linalg.norm(position[:2]) < 1e-10:
+                    base = reference
+                else:
+                    heading = np.arctan2(position[1], position[0]) + (np.pi if side < 0 else 0.0)
+                    base = (heading - dh['theta'][0]) / polarity
+                    base += 2.0 * np.pi * np.round((reference - base) / (2.0 * np.pi))
+                if base < lower[0] - 1e-9 or base > upper[0] + 1e-9:
+                    raise RuntimeError('A Cartesian segment crosses the base-joint limit.')
+                values[index] = np.clip(base, lower[0], upper[0])
+        return values
+
     def run(self):
         """This function is the main run function of the class. When called, it runs question 6 by calling the q6()
         function to get the trajectory. Then, the message is filled out and published to the /command topic.
@@ -114,53 +287,28 @@ class YoubotTrajectoryPlanning(Node):
         try:
             joint_path = self.full_checkpoints_to_joints(full_tfs, target_joints[:, 0])
         except RuntimeError as direct_error:
-            # The base has two position-IK branches. They meet only on its
-            # axis; joining them away from the axis cannot follow a straight
-            # Cartesian segment. Replan through the axis instead of splicing
-            # unrelated IK solutions or changing the measured starting state.
-            self.get_logger().info(f"Direct route needs replanning: {direct_error}")
-            start = target_tfs[:3, 3, 0]
-            first = target_tfs[:3, 3, order[1]]
-            radius_start = np.linalg.norm(start[:2])
-            radius_first = np.linalg.norm(first[:2])
-            axis_tf = target_tfs[:, :, 0].copy()
-            axis_tf[:2, 3] = 0.0
-            radius_sum = radius_start + radius_first
-            if radius_sum > 1e-12:
-                # Minimize the length of the two straight segments through
-                # the axis by unfolding their radial/height coordinates.
-                axis_tf[2, 3] = (
-                    radius_first * start[2] + radius_start * first[2]
-                ) / radius_sum
-
-            # A repeated axis checkpoint provides a stationary Cartesian
-            # segment for a continuous base rotation before leaving the axis.
-            target_tfs = np.concatenate(
-                (target_tfs[:, :, :1], axis_tf[:, :, None],
-                 axis_tf[:, :, None], target_tfs[:, :, 1:]), axis=2,
+            self.get_logger().info(f"Direct route needs bounded replanning: {direct_error}")
+            target_tfs, checkpoint_bases, segment_sides = self._bounded_checkpoint_route(
+                target_tfs, target_joints
             )
-            order = np.r_[0, 1, 2, order[1:] + 2]
-            self.get_logger().info(
-                f"Replanning through base-axis waypoint {axis_tf[:3, 3].tolist()}; "
-                "preserving the original target visit order."
-            )
+            order = np.arange(target_tfs.shape[2], dtype=int)
             for density in (30, 60, 120, 240):
                 num_intermediate_points = density
                 full_tfs = self.intermediate_tfs(order, target_tfs, num_points=density)
+                base_angles = self._base_angles_for_route(
+                    full_tfs, checkpoint_bases, segment_sides, density
+                )
                 try:
                     joint_path = self.full_checkpoints_to_joints(
-                        full_tfs, target_joints[:, 0]
+                        full_tfs, target_joints[:, 0], base_angles=base_angles
                     )
                     break
                 except RuntimeError as replan_error:
                     if density == 240:
                         raise RuntimeError(
-                            "Could not validate a continuous replanned trajectory; "
-                            "no command sent."
+                            "Could not validate a continuous bounded trajectory; no command sent."
                         ) from replan_error
-                    self.get_logger().info(
-                        f"Refining the replanned Cartesian segments: {replan_error}"
-                    )
+                    self.get_logger().info(f"Refining bounded Cartesian segments: {replan_error}")
         self.get_logger().info(
             f"Interpolation: {num_intermediate_points} interior points per segment; "
             f"{full_tfs.shape[2]} total poses including checkpoints."
@@ -250,17 +398,20 @@ class YoubotTrajectoryPlanning(Node):
         publish_path()
         self.checkpoint_timer = self.create_timer(1.0, publish_path)
 
-        # Keep the same nominal time per checkpoint-to-checkpoint segment when
-        # increasing sampling density. Limit average joint speed to 1.0 rad/s.
-        min_sample_duration = 0.15 * 21 / (num_intermediate_points + 1)
+        # Preserve the nominal duration budget when inserting safety transitions.
+        # Every interval still respects the existing 1 rad/s joint-speed bound.
+        joint_moves = np.max(np.abs(np.diff(joint_path, axis=1)), axis=0)
+        durations = np.maximum(joint_moves / 1.0, 1e-3)
+        nominal_duration = 0.15 * 21 * (len(TARGET_JOINT_POSITIONS) + 2)
+        if durations.size:
+            durations *= max(1.0, nominal_duration / float(durations.sum()))
         traj = JointTrajectory()
         traj.header.frame_id = "base_link"
         traj.joint_names = joint_names
         elapsed = 0.5
         for i in range(joint_path.shape[1]):
             if i > 0:
-                largest_move = float(np.max(np.abs(joint_path[:, i] - joint_path[:, i - 1])))
-                elapsed += max(min_sample_duration, largest_move / 1.0)
+                elapsed += float(durations[i - 1])
             point = JointTrajectoryPoint()
             point.positions = joint_path[:, i].tolist()
             point.time_from_start = Duration(seconds=elapsed).to_msg()
@@ -459,233 +610,136 @@ class YoubotTrajectoryPlanning(Node):
         # Your code ends here ------------------------------
         return tfs
 
-    def full_checkpoints_to_joints(self, full_checkpoint_tfs, init_joint_position):
-        """This function takes the full set of checkpoint transformations, including intermediate checkpoints,
-        and computes the associated joint positions by calling the ik_position_only() function.
-        Args:(Input)
-            full_checkpoint_tfs (np.ndarray, 4x4xn): 4x4xn transformations describing all the desired poses of the end-effector
-            to follow the desired path.
-            init_joint_position (np.ndarray):A 5x1 array for the initial joint position of the robot.
-        Returns:
-            q_checkpoints (np.ndarray, 5xn): For each pose, the solution of the position IK to get the joint position
-            for that pose.
-        """
-        # TODO: Implement this
-        # Your code starts here ------------------------------
+    def full_checkpoints_to_joints(self, full_checkpoint_tfs, init_joint_position, base_angles=None):
+        """Solve and validate a continuous path with strict URDF position limits."""
+        lower, upper = self._joint_position_limits()
+        initial = np.asarray(init_joint_position, dtype=float).reshape(5)
+        if not np.all(np.isfinite(initial)) or np.any(initial < lower) or np.any(initial > upper):
+            raise RuntimeError('The measured starting configuration exceeds URDF limits.')
+        count = full_checkpoint_tfs.shape[2]
+        if base_angles is not None and np.shape(base_angles) != (count,):
+            raise ValueError('One base angle is required for each Cartesian sample.')
+        path = np.empty((5, count))
+        seed = initial.copy()
+        for i in range(count):
+            pose = full_checkpoint_tfs[:, :, i]
+            if i == 0:
+                solution = initial.copy()
+                error = float(np.linalg.norm(self.kdl_youbot.forward_kinematics(initial.tolist())[:3, 3] - pose[:3, 3]))
+            else:
+                base = None if base_angles is None else float(base_angles[i])
+                solution, error = self.ik_position_only(pose, seed, num=1500, base_angle=base)
+                solution = solution.reshape(5)
+            if not np.isfinite(error) or error >= 1e-5:
+                raise RuntimeError(f'Bounded continuous IK failed at sample {i}; no command sent.')
+            solution[4] = initial[4]
+            path[:, i] = solution
+            seed = solution.copy()
+        if np.any(path < lower[:, None]) or np.any(path > upper[:, None]):
+            raise RuntimeError('A trajectory point exceeds URDF position limits; no command sent.')
 
-        # First solve forward from the actual measured configuration, warming
-        # each Jacobian IK solve with the previous result. Preserve sample zero.
-        initial_joints = np.asarray(init_joint_position, dtype=float).reshape(5)
-        num_samples = full_checkpoint_tfs.shape[2]
-        # Waypoint IK accuracy alone does not constrain motion between samples.
-        # Allow at most 1 mm error along the controller's position-only, linear
-        # joint interpolation. This is separate from the 1e-5 m IK tolerance.
-        max_path_deviation = 1e-3
-
-        def interpolation_is_valid(left, right, start, end):
+        positions = full_checkpoint_tfs[:3, 3, :]
+        errors = [float(np.linalg.norm(self.kdl_youbot.forward_kinematics(path[:, i].tolist())[:3, 3] - positions[:, i]))
+                  for i in range(count)]
+        if not np.all(np.isfinite(errors)) or max(errors) >= 1e-5:
+            raise RuntimeError('Waypoint FK validation failed; no command sent.')
+        maximum_bound = 0.0
+        dh = self.kdl_youbot.dh_params
+        for i in range(count - 1):
+            left, right = path[:, i], path[:, i + 1]
             delta = right - left
-            rates = np.abs(delta * self.kdl_youbot.youbot_joint_readings_polarity)
-            cumulative_rates = np.cumsum(rates)
-            previous_rates = np.r_[0.0, cumulative_rates[:-1]]
-            # Each DH translation is a rotated vector. Its second derivative
-            # is bounded by its length times the squared sum of joint rates.
-            # The a term rotates with this joint; d rotates with earlier joints.
-            dh = self.kdl_youbot.dh_params
-            curvature_bound = float(
-                np.abs(dh['a']) @ cumulative_rates**2
-                + np.abs(dh['d']) @ previous_rates**2
-            )
-
+            cumulative = np.cumsum(np.abs(delta * self.kdl_youbot.youbot_joint_readings_polarity))
+            previous = np.r_[0.0, cumulative[:-1]]
+            curvature = float(np.abs(dh['a']) @ cumulative**2 + np.abs(dh['d']) @ previous**2)
             def deviation(fraction):
-                actual = self.kdl_youbot.forward_kinematics(
-                    (left + fraction * delta).tolist()
-                )[:3, 3]
-                expected = (1.0 - fraction) * start + fraction * end
-                error = float(np.linalg.norm(actual - expected))
-                return error if np.isfinite(error) else float('inf')
-
-            pending = [(0.0, 1.0, deviation(0.0), deviation(1.0), 0)]
-            max_bound = 0.0
+                actual = self.kdl_youbot.forward_kinematics((left + fraction * delta).tolist())[:3, 3]
+                expected = (1.0 - fraction) * positions[:, i] + fraction * positions[:, i + 1]
+                return float(np.linalg.norm(actual - expected))
+            pending = [(0.0, 1.0, errors[i], errors[i + 1], 0)]
             while pending:
                 a, b, error_a, error_b, depth = pending.pop()
-                endpoint_error = max(error_a, error_b)
-                if endpoint_error > max_path_deviation:
-                    return False, endpoint_error
-                # Between samples, the deviation from the error-vector chord
-                # is at most M*h^2/8. Refine until the entire interval is bounded,
-                # so a peak between test samples cannot silently pass validation.
-                bound = endpoint_error + curvature_bound * (b - a)**2 / 8.0
-                if bound <= max_path_deviation:
-                    max_bound = max(max_bound, bound)
+                endpoint = max(error_a, error_b)
+                bound = endpoint + curvature * (b - a)**2 / 8.0
+                if not np.isfinite(bound) or endpoint > 1e-3:
+                    raise RuntimeError(f'Cartesian interpolation error exceeds 1 mm at interval {i}.')
+                if bound <= 1e-3:
+                    maximum_bound = max(maximum_bound, bound)
                     continue
                 if depth >= 12:
-                    return False, bound
-                midpoint = (a + b) / 2.0
-                error_mid = deviation(midpoint)
-                pending.append((midpoint, b, error_mid, error_b, depth + 1))
-                pending.append((a, midpoint, error_a, error_mid, depth + 1))
-            return True, max_bound
-
-        q_checkpoints = np.full((5, num_samples), np.nan)
-        seed = initial_joints.copy()
-        positions = full_checkpoint_tfs[:3, 3, :]
-        radii = np.linalg.norm(positions[:2], axis=0)
-        on_axis = radii < 1e-10
-        axis_start = axis_end = -1
-        axis_rotation = 0.0
-        axis_base = seed[0]
-        dh = self.kdl_youbot.dh_params
-        base_polarity = self.kdl_youbot.youbot_joint_readings_polarity[0]
-        # In the YouBot arm plane the two arm links and the tool offset form
-        # a three-link chain. Use its reach to select a base branch that can
-        # reach the remaining route, rather than a distant target's joint seed.
-        arm_reach = abs(dh['a'][1]) + abs(dh['a'][2]) + np.hypot(dh['a'][3], dh['d'][4])
-
-        for i in range(num_samples):
-            if on_axis[i] and (i == 0 or not on_axis[i - 1]):
-                axis_start = i
-                axis_end = i + 1
-                while axis_end < num_samples and on_axis[axis_end]:
-                    axis_end += 1
-                axis_base = seed[0]
-                axis_rotation = 0.0
-                if axis_end < num_samples:
-                    outgoing = positions[:, axis_end]
-                    candidates = []
-                    for side in (1, -1):
-                        radial = side * radii[axis_end:] - dh['a'][0]
-                        height = positions[2, axis_end:] - dh['d'][0]
-                        if np.any(np.hypot(radial, height) > arm_reach + 1e-8):
-                            continue
-                        heading = np.arctan2(outgoing[1], outgoing[0])
-                        if side < 0:
-                            heading += np.pi
-                        base_target = (heading - dh['theta'][0]) / base_polarity
-                        delta = base_target - axis_base
-                        candidates.append(float(np.arctan2(np.sin(delta), np.cos(delta))))
-                    if not candidates:
-                        raise RuntimeError(
-                            "No continuous base branch reaches the remaining route; "
-                            "Cartesian replanning is required."
-                        )
-                    axis_rotation = min(candidates, key=abs)
-                    if axis_end - axis_start < 2 and abs(axis_rotation) > 1e-4:
-                        raise RuntimeError("A stationary axis segment is required to rotate the base.")
-
-            if on_axis[i] and axis_end - axis_start > 1:
-                # At zero tool radius, base rotation is a position-Jacobian
-                # null-space motion. Spread it across the stationary segment.
-                fraction = (i - axis_start) / (axis_end - axis_start - 1)
-                seed[0] = axis_base + fraction * axis_rotation
-            if i == 0:
-                # Preserve the actual initial configuration exactly.
-                joints = initial_joints.reshape(5, 1)
-                actual = self.kdl_youbot.forward_kinematics(initial_joints.tolist())[:3, 3]
-                error = float(np.linalg.norm(actual - positions[:, 0]))
-            else:
-                joints, error = self.ik_position_only(full_checkpoint_tfs[:, :, i], seed, num=2000)
-            if not np.isfinite(error) or error >= 1e-5:
-                raise RuntimeError(
-                    f"Continuous IK failed at sample {i}; Cartesian replanning is required."
-                )
-            seed = joints.reshape(5).copy()
-            # Tool roll does not affect position and need not move for position IK.
-            seed[4] = initial_joints[4]
-            q_checkpoints[:, i] = seed
-
-        # Remove equivalent full turns without changing any waypoint position.
-        # These are simulator joint targets; this position IK does not enforce
-        # hardware joint limits, as documented by the template's IK method.
-        for i in range(1, num_samples):
-            delta = q_checkpoints[:, i] - q_checkpoints[:, i - 1]
-            q_checkpoints[:, i] = q_checkpoints[:, i - 1] + np.arctan2(
-                np.sin(delta), np.cos(delta)
-            )
-
-        # Validate every returned waypoint, including stationary axis samples,
-        # before the template run() method publishes the single trajectory.
-        max_error = 0.0
-        for i in range(num_samples):
-            actual = self.kdl_youbot.forward_kinematics(q_checkpoints[:, i].tolist())[:3, 3]
-            error = float(np.linalg.norm(actual - full_checkpoint_tfs[:3, 3, i]))
-            if not np.isfinite(error) or error >= 1e-5:
-                raise RuntimeError(f"IK validation failed at sample {i}; no command sent.")
-            max_error = max(max_error, error)
-
-        # Validate every interval after angle unwrapping, not only a fallback
-        # join. The controller receives these exact positions and no velocities.
-        max_interpolation_bound = 0.0
-        for i in range(num_samples - 1):
-            valid, bound = interpolation_is_valid(
-                q_checkpoints[:, i], q_checkpoints[:, i + 1],
-                full_checkpoint_tfs[:3, 3, i], full_checkpoint_tfs[:3, 3, i + 1],
-            )
-            if not valid:
-                raise RuntimeError(
-                    f"Joint interpolation at samples {i}-{i + 1} could not be "
-                    f"validated within {max_path_deviation:.6f} m of the Cartesian "
-                    "path; no command sent."
-                )
-            max_interpolation_bound = max(max_interpolation_bound, bound)
+                    raise RuntimeError(f'Cartesian interpolation could not be validated at interval {i}.')
+                middle = (a + b) / 2.0
+                error_middle = deviation(middle)
+                pending.extend([(a, middle, error_a, error_middle, depth + 1),
+                                (middle, b, error_middle, error_b, depth + 1)])
         self.get_logger().info(
-            f"IK solved {q_checkpoints.shape[1]} samples; max error: {max_error:.3e} m; "
-            f"interpolation deviation bound: {max_interpolation_bound:.3e} m."
+            f'IK solved {count} samples; max error: {max(errors):.3e} m; '
+            f'interpolation deviation bound: {maximum_bound:.3e} m; all joints within URDF limits.'
         )
+        return path
 
-        # Your code ends here ------------------------------
+    def ik_position_only(self, pose, q0, lam=0.25, num=500, base_angle=None):
+        """Position IK using bounded, active-set Jacobian pseudoinverse steps.
 
-        return q_checkpoints
-
-    def ik_position_only(self, pose, q0, lam=0.25, num=500):
-        """Solve one position target by iterative Jacobian pseudoinverse updates.
-
-        Args:
-            pose (np.ndarray, 4x4): Target end-effector pose in the base frame.
-                Only its translation is used; orientation is not constrained.
-            q0 (np.ndarray): Five initial joint angles in radians, shape (5,) or (5, 1).
-            lam (float): Positive step size for each joint update, default 0.25.
-            num (int): Maximum number of updates, default 500.
-        Returns:
-            q (np.ndarray, 5x1): Final joint estimate in radians.
-            error (float): Final Euclidean position error in metres. An error below
-                1e-5 indicates convergence; otherwise the target has not been solved.
-
-        This local solver may not converge from a distant or singular initial guess.
-        It does not enforce joint limits or collision constraints.
+        The optional base angle selects a continuous admissible branch. Only
+        position is constrained; collision checking is outside this lab solver.
         """
         pose = np.asarray(pose, dtype=float)
-        initial_joints = np.asarray(q0, dtype=float)
+        initial = np.asarray(q0, dtype=float)
         if pose.shape != (4, 4) or not np.all(np.isfinite(pose)):
-            raise ValueError("pose must be a finite 4x4 transformation matrix")
-        if initial_joints.shape not in ((5,), (5, 1)) or not np.all(np.isfinite(initial_joints)):
-            raise ValueError("q0 must contain five finite joint angles, shape (5,) or (5, 1)")
-        if not np.isfinite(lam) or lam <= 0:
-            raise ValueError("lam must be a positive finite step size")
+            raise ValueError('pose must be a finite 4x4 transformation matrix')
+        if initial.shape not in ((5,), (5, 1)) or not np.all(np.isfinite(initial)):
+            raise ValueError('q0 must contain five finite joint angles')
+        if not np.isfinite(lam) or lam <= 0.0:
+            raise ValueError('lam must be positive and finite')
         if not isinstance(num, (int, np.integer)) or num < 0:
-            raise ValueError("num must be a non-negative integer")
-
-        q = initial_joints.reshape(5).copy()
-        target_position = pose[:3, 3]
-        tolerance = 1e-5
-        max_step = 0.1  # Limit the joint-update vector length to 0.1 radians.
-
+            raise ValueError('num must be a non-negative integer')
+        lower, upper = self._joint_position_limits()
+        q = initial.reshape(5).copy()
+        if np.any(q < lower - 1e-9) or np.any(q > upper + 1e-9):
+            raise ValueError('Initial joints exceed URDF position limits')
+        q = np.clip(q, lower, upper)
+        if base_angle is not None:
+            if not np.isfinite(base_angle) or base_angle < lower[0] or base_angle > upper[0]:
+                raise ValueError('Selected base angle exceeds URDF position limits')
+            q[0] = base_angle
+        target = pose[:3, 3]
         for _ in range(num):
-            current_pose = self.kdl_youbot.forward_kinematics(q.tolist())
-            position_error = target_position - current_pose[:3, 3]
-            if np.linalg.norm(position_error) < tolerance:
+            error = target - self.kdl_youbot.forward_kinematics(q.tolist())[:3, 3]
+            norm = float(np.linalg.norm(error))
+            if norm < 1e-5:
                 break
-
-            position_jacobian = self.kdl_youbot.get_jacobian(q.tolist())[:3, :]
-            # Delta p = J_p Delta q; use the pseudoinverse because J_p is 3x5.
-            joint_step = lam * (np.linalg.pinv(position_jacobian) @ position_error)
-            step_norm = np.linalg.norm(joint_step)
-            if step_norm > max_step:
-                joint_step *= max_step / step_norm
-            q += joint_step
-
-        # Recompute after the final update so error always describes the returned q.
-        final_pose = self.kdl_youbot.forward_kinematics(q.tolist())
-        error = float(np.linalg.norm(target_position - final_pose[:3, 3]))
+            jacobian = self.kdl_youbot.get_jacobian(q.tolist())[:3, :]
+            free = np.ones(5, dtype=bool)
+            free[4] = False
+            if base_angle is not None:
+                free[0] = False
+            step = np.zeros(5)
+            for _active in range(5):
+                step[:] = 0.0
+                if not np.any(free):
+                    break
+                step[free] = lam * (np.linalg.pinv(jacobian[:, free], rcond=1e-7) @ error)
+                outward = free & (((q <= lower + 1e-10) & (step < 0.0)) |
+                                  ((q >= upper - 1e-10) & (step > 0.0)))
+                if not np.any(outward):
+                    break
+                free[outward] = False
+            length = float(np.linalg.norm(step))
+            if length < 1e-12:
+                break
+            if length > 0.1:
+                step *= 0.1 / length
+            accepted = False
+            for fraction in (1.0, 0.5, 0.25, 0.125, 0.0625, 0.03125):
+                candidate = np.clip(q + fraction * step, lower, upper)
+                candidate_error = float(np.linalg.norm(target - self.kdl_youbot.forward_kinematics(candidate.tolist())[:3, 3]))
+                if candidate_error < norm:
+                    q = candidate
+                    accepted = True
+                    break
+            if not accepted:
+                break
+        error = float(np.linalg.norm(target - self.kdl_youbot.forward_kinematics(q.tolist())[:3, 3]))
         return q.reshape(5, 1), error
 
 
