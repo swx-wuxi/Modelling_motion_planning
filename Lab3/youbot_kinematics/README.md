@@ -16,7 +16,9 @@ The main implementations are:
 
 Q1(a): Forward kinematics, geometric Jacobian and singularity detection.
 
-Q1(b): Shortest Cartesian path planning, waypoint interpolation and Jacobian-based inverse kinematics.
+Q1(b): Cartesian path planning, waypoint interpolation and Jacobian-based inverse kinematics within URDF joint limits.
+
+The planner selects feasible target orders and adds base-axis transition points where needed to keep the motion continuous. IK controls position only.
 
 Q1(c): ROS 2 node for publishing the end-effector transform based on joint-state feedback.
 
@@ -46,6 +48,8 @@ In RViz, add or enable the TF display and select
 `arm_end_effector_follower` under Frames. This frame updates from
 `/joint_states` as the robot moves.
 
+Orange markers show the start, targets and added transition points; green markers show intermediate path samples. Some transition markers overlap.
+
 ### 3. Running and Testing
 
 Follow the build and launch instructions in `Lab3/README.md`. 
@@ -70,3 +74,5 @@ reload the environment, and restart the planner:
 Keep the robot launch running with `use_jspg:=false`.
 If using a new terminal, `source install/setup.bash` there before running
 the planner.
+
+Each run starts from the latest joint feedback, so the route and duration may vary.
